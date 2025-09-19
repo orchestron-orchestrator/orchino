@@ -1,0 +1,12 @@
+import orchestron.device as odev
+
+import orchino.devices.CiscoIosXr_24_1_ncs55a1
+device_types = {
+    "CiscoIosXr_24_1_ncs55a1": odev.DeviceType(name="CiscoIosXr_24_1_ncs55a1",
+            adapter_type=odev.NetconfAdapter,
+            schema_namespaces=orchino.devices.CiscoIosXr_24_1_ncs55a1.schema_namespaces,
+            root=orchino.devices.CiscoIosXr_24_1_ncs55a1.root,
+            from_gdata=orchino.devices.CiscoIosXr_24_1_ncs55a1.root.from_gdata,
+            from_xml=orchino.devices.CiscoIosXr_24_1_ncs55a1.from_xml
+        ),
+}

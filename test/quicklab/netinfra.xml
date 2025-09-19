@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+    <netinfra xmlns="http://example.com/netinfra">
+        <router>
+            <name>AMS-CORE-1</name>
+            <id>1</id>
+            <type>CiscoIosXr_24_1_ncs55a1</type>
+        </router>
+    </netinfra>
+</data>

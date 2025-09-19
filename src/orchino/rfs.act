@@ -1,0 +1,23 @@
+import yang.adata
+import orchestron.device as odev
+import orchestron.ttt
+from orchestron import UnsupportedDevice
+
+import orchino.layers.base_1 as base
+
+import orchino.devices.CiscoIosXr_24_1_ncs55a1 as xr24
+
+class BaseConfig(base.BaseConfig):
+    def transform(self, i, di):
+        print("RFS /rfs{{{di.name}}}/base-config transform running", err=True)
+
+        if "Cisco-IOS-XR-um-hostname-cfg" in di.modules:
+            print("RFS /rfs{{{di.name}}}/base-config transform for Cisco IOS XR", err=True)
+            dev = xr24.root()
+            dev.hostname.system_network_name = di.name
+            intf = dev.interfaces.interface.create("Loopback0")
+            intf.ipv4.addresses.create_address(i.ipv4_address, "255.255.255.255")
+
+            return dev
+
+        raise UnsupportedDevice()
