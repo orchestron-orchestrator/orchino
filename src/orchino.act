@@ -8,20 +8,22 @@ import xml
 
 import orchestron.device as odev
 import orchestron.ttt as ttt
+import orchestron.device_meta_config    # TODO: remove https://github.com/actonlang/acton/issues/2390
+
+import yang
 import yang.adata
 import yang.gdata
+import yang.gen3
 
 import orchino.layers
 import orchino.layers.y_0_loose as cfs_layer
 import orchino.layers.y_0
 import orchino.layers.y_1
 import orchino.layers.y_2
-import orchino.layers.y_3
 
 import orchino.layers.y_0_loose
 import orchino.layers.y_1_loose
 import orchino.layers.y_2_loose
-import orchino.layers.y_3_loose
 
 import orchino.sysspec
 
@@ -31,30 +33,32 @@ class Unreachable(Exception):
     """Exception raised when code is unreachable."""
     pass
 
+NS_ORFS = "http://orchestron.org/yang/orchestron-rfs.yang"
 def rfs_for_device(dev):
+    def q(n):
+        return yang.gdata.Id(NS_ORFS, n)
+
     return yang.gdata.Container({
-        'rfs': yang.gdata.List(["name"], [
+        q('rfs'): yang.gdata.List([q("name")], [
             yang.gdata.Container({
-                "name": yang.gdata.Leaf("string", dev)
+                q("name"): yang.gdata.Leaf(dev)
             })
         ])
     })
 
-def adata_for_layer(layer, gdata):
+def schema_for_layer(layer):
     if layer == 0:
-        return orchino.layers.y_0_loose.root.from_gdata(gdata)
+        return orchino.layers.y_0_loose.SRC_DNODE
     elif layer == 1:
-        return orchino.layers.y_1_loose.root.from_gdata(gdata)
+        return orchino.layers.y_1_loose.SRC_DNODE
     elif layer == 2:
-        return orchino.layers.y_2_loose.root.from_gdata(gdata)
-    elif layer == 3:
-        # Layer 3 (device) is a bit special, in that there is more than one adata tree:
+        # Layer 2 (device) is a bit special, in that there is more than one schema:
         # 1. The device manager, defined in orchestron-device.yang
         # 2. The device configuration, defined in the device's own YANG model
-        # The contents of layer 3 (gdata) is a combination of both, but to
-        # reconstruct adata, we must pick whether we want the internal device
+        # The contents of layer 2 (gdata) is a combination of both, but to ???
+        # , we must pick whether we want the internal device
         # manager or the device configuration. Here we return the device manager tree.
-        return orchino.layers.y_3_loose.root.from_gdata(gdata)
+        return orchino.layers.y_2_loose.SRC_DNODE
     else:
         raise ValueError("Invalid layer: {layer}")
 
@@ -77,6 +81,8 @@ actor main(env):
     logh_dev.set_handler(logh)
 
     log = logging.Logger(logh)
+
+    top_schema = orchino.layers.y_0.SRC_DNODE
 
     dev_registry = odev.DeviceRegistry(orchino.sysspec.device_types, env.cap, logh_dev)
     cfs = orchino.layers.get_layers(dev_registry, logh_ttt)
@@ -155,18 +161,17 @@ actor main(env):
                 except Exception as e:
                     respond(500, {}, f"Error fetching devices: {e}")
                 return
-            
+
             if len(path_elements) > 3 and path_elements[1] == "device":
                 def respond_with_data(data: ?yang.gdata.Node, schema: odev.DeviceSchema, accept_header: ?str):
                     aheader = accept_header if accept_header is not None else "application/yang-data+json"
                     if data is not None:
                         if aheader == "application/yang-data+json":
-                            out_data = data.to_json()
+                            out_data = data.to_jsonstr()
                         elif aheader == "application/yang-data+xml":
                             out_data = data.to_xmlstr()
                         elif aheader == "application/yang-data+acton-adata":
-                            adata = schema.from_gdata(data)
-                            out_data = adata.prsrc()
+                            out_data = yang.gen3.pradata(schema.src_dnode, data, loose=True)
                         else:
                             respond(404, {}, "Unsupported media type")
                             return
@@ -177,6 +182,9 @@ actor main(env):
                 try:
                     dev_name = path_elements[2]
                     dev = dev_registry.get(dev_name)
+                    # TODO: avoid "actonc: #### findAttr' fails for __builtin__.str . val"
+                    # This compiler error occurs when we get the schema closer to where it is needed
+                    schema = dev.get_schema()
                     if path_elements[3] == "capabilities":
                         respond(200, {}, str(dev.get_capabilities()))
                         return
@@ -198,24 +206,23 @@ actor main(env):
                                     kv = param.split("=", 1)
                                     if kv[0] == "format":
                                         format_type = kv[1]
-                        
+
                         running_conf = dev.get_running_conf()
                         target_conf = dev.get_target_conf()
-                        
+
                         if running_conf is not None and target_conf is not None:
                             config_diff = yang.gdata.diff(running_conf, target_conf)
                             if config_diff is not None:
                                 if format_type == "json":
-                                    diff_str = config_diff.to_json()
+                                    diff_str = config_diff.to_jsonstr()
                                 elif format_type == "xml":
                                     diff_str = config_diff.to_xmlstr()
                                 elif format_type == "gdata":
                                     diff_str = config_diff.prsrc()
                                 elif format_type == "adata":
-                                    # adata conversion would need schema
-                                    diff_str = "# Adata format not available for diff"
+                                    diff_str = yang.gen3.pradata(schema.src_dnode, config_diff, loose=True)
                                 else:
-                                    diff_str = config_diff.to_json()  # default to json
+                                    diff_str = config_diff.to_jsonstr()  # default to json
                                 respond(200, {"Content-Type": "text/plain"}, diff_str)
                             else:
                                 respond(200, {"Content-Type": "text/plain"}, "# No differences")
@@ -232,20 +239,19 @@ actor main(env):
                                     kv = param.split("=", 1)
                                     if kv[0] == "format":
                                         format_type = kv[1]
-                        
+
                         target_conf = dev.get_target_conf()
                         if target_conf is not None:
                             if format_type == "json":
-                                conf_str = target_conf.to_json()
+                                conf_str = target_conf.to_jsonstr()
                             elif format_type == "xml":
                                 conf_str = target_conf.to_xmlstr()
                             elif format_type == "gdata":
                                 conf_str = target_conf.prsrc()
                             elif format_type == "adata":
-                                # adata conversion would need schema
-                                conf_str = "# Adata format not available"
+                                conf_str = yang.gen3.pradata(schema.src_dnode, target_conf, loose=True)
                             else:
-                                conf_str = target_conf.to_json()  # default to json
+                                conf_str = target_conf.to_jsonstr()  # default to json
                             respond(200, {"Content-Type": "text/plain"}, conf_str)
                         else:
                             respond(200, {"Content-Type": "text/plain"}, "# No target configuration available")
@@ -260,36 +266,35 @@ actor main(env):
                                     kv = param.split("=", 1)
                                     if kv[0] == "format":
                                         format_type = kv[1]
-                        
+
                         running_conf = dev.get_running_conf()
                         if running_conf is not None:
                             if format_type == "json":
-                                conf_str = running_conf.to_json()
+                                conf_str = running_conf.to_jsonstr()
                             elif format_type == "xml":
                                 conf_str = running_conf.to_xmlstr()
                             elif format_type == "gdata":
                                 conf_str = running_conf.prsrc()
                             elif format_type == "adata":
-                                # adata conversion would need schema
-                                conf_str = "# Adata format not available"
+                                conf_str = yang.gen3.pradata(schema.src_dnode, running_conf, loose=True)
                             else:
-                                conf_str = running_conf.to_json()  # default to json
+                                conf_str = running_conf.to_jsonstr()  # default to json
                             respond(200, {"Content-Type": "text/plain"}, conf_str)
                         else:
                             respond(200, {"Content-Type": "text/plain"}, "# No running configuration available")
                         return
-                    
+
                     if path_elements[3] == 'resync':
                         # Trigger device resync
                         dev.resync()
                         respond(200, {"Content-Type": "application/json"}, json.encode({"status": "ok", "message": "Resync initiated"}))
                         return
-                    
+
                     if path_elements[3] == 'info':
                         # Get device meta configuration and state
                         dmc = dev.get_dmc()
                         dev_state = dev.get_state()
-                        
+
                         info = {
                             "name": dev_name,
                             "type": dmc.type if dmc.type is not None else "unknown",
@@ -299,10 +304,10 @@ actor main(env):
                             "queue_length": dev_state.queue_length,
                             "pending_approvals": dev_state.pending_approvals
                         }
-                        
+
                         # Add address information
                         addresses = []
-                        for addr_entry in dmc.address.elements:
+                        for addr_entry in dmc.address:
                             addr_info = {
                                 "name": addr_entry.name,
                                 "address": addr_entry.address
@@ -311,19 +316,34 @@ actor main(env):
                                 addr_info["port"] = addr_entry.port
                             addresses.append(addr_info)
                         info["addresses"] = addresses
-                        
+
                         # Add credentials info (just username, not password)
                         if dmc.credentials is not None:
                             info["username"] = dmc.credentials.username if dmc.credentials.username is not None else ""
-                        
+
+                        # Add YANG modules information (available for all devices)
+                        modset, modset_id = dev.get_modules()
+                        modules = []
+                        for mod_name, mod in modset.items():
+                            module_info = {
+                                "name": mod.name,
+                                "namespace": mod.namespace
+                            }
+                            if mod.revision is not None:
+                                module_info["revision"] = mod.revision
+                            if mod.feature is not None and len(mod.feature) > 0:
+                                module_info["features"] = list(mod.feature)
+                            modules.append(module_info)
+                        info["modules"] = modules
+
                         respond(200, {"Content-Type": "application/json"}, json.encode(info))
                         return
-                    
+
                     if path_elements[3] == 'log':
                         # Get device configuration log
                         conf_log = dev.get_conf_log()
                         log_items = []
-                        
+
                         # Parse query params for format
                         format_type = "xml"  # default
                         query_params = {}
@@ -334,15 +354,15 @@ actor main(env):
                                     kv = param.split("=", 1)
                                     query_params[kv[0]] = kv[1]
                         format_type = query_params.get_def("format", "xml")
-                        
+
                         for item in conf_log:
-                            
+
                             # Format the config diff based on format type
                             diff_str = ""
                             conf_diff = item.conf_diff
                             if conf_diff is not None:
                                 if format_type == "json":
-                                    diff_str = conf_diff.to_json()
+                                    diff_str = conf_diff.to_jsonstr()
                                 elif format_type == "xml":
                                     diff_str = conf_diff.to_xmlstr()
                                 elif format_type == "gdata":
@@ -353,7 +373,7 @@ actor main(env):
                                 "event": item.event,
                                 "conf_diff": diff_str
                             })
-                        
+
                         respond(200, {"Content-Type": "application/json"}, json.encode({"log": log_items}))
                         return
                     if path_elements[3] == 'resync':
@@ -382,14 +402,14 @@ actor main(env):
                                             query_params[kv[0]] = kv[1]
                                 log.debug("qp", {"query_params": query_params, "split": request.path.split('&')})
                                 format_type = query_params.get_def("format", "xml")
-                                
+
                                 def format_ci(di: (ci: odev.ConfigItem, running_conf: yang.gdata.Node)):
                                     config_diff = yang.gdata.diff(di.running_conf, di.ci.conf)
-                                    
+
                                     config_diff_str = None
                                     if config_diff is not None:
                                         if format_type == "json":
-                                            #config_diff_str = config_diff.to_json()
+                                            #config_diff_str = config_diff.to_jsonstr()
                                             config_diff_str = "# JSON diff not available"
                                         elif format_type == "adata":
                                             #config_diff_str = str(config_diff.to_adata())
@@ -399,7 +419,7 @@ actor main(env):
                                             config_diff_str = config_diff.prsrc()
                                         else:  # xml is default
                                             config_diff_str = config_diff.to_xmlstr()
-                                    
+
                                     return {
                                         "tid": di.ci.tid,
                                         "config_diff": config_diff_str,
@@ -431,12 +451,12 @@ actor main(env):
                     layer_config: yang.gdata.Node = session.get()
                     content = ""
                     if request.headers.get("accept") == "application/yang-data+json":
-                        content = layer_config.to_json()
+                        content = layer_config.to_jsonstr()
                     if request.headers.get("accept") == "application/yang-data+xml":
                         content = layer_config.to_xmlstr()
                     if request.headers.get("accept") == "application/yang-data+acton-adata":
-                        adata = adata_for_layer(layer_idx, layer_config)
-                        content = adata.prsrc()
+                        src_dnode = schema_for_layer(layer_idx)
+                        content = yang.gen3.pradata(src_dnode, layer_config, loose=True)
                     respond(200, {}, content)
                     return
             else:
@@ -445,7 +465,7 @@ actor main(env):
         elif request.method == "DELETE":
             p = split_restconf_path(request.path)
             if p[0] == "restconf":
-                input_config = orchino.layers.y_0.from_json_path({}, p[1:], "remove")
+                input_config = yang.gen3.from_json_path(top_schema, {}, p[1:], "remove", loose=True)
                 session = cfs.newsession()
                 session.edit_config(input_config, config_done)
                 return
@@ -460,11 +480,11 @@ actor main(env):
                 if request.headers.get("content-type") == "application/yang-data+json":
                     json_in = json.decode(request.body.decode())
                     p = split_restconf_path(request.path)[1:]
-                    input_config = orchino.layers.y_0.from_json_path(json_in, p)
+                    input_config = yang.gen3.from_json_path(top_schema, json_in, p, loose=True)
                 elif request.headers.get("content-type") == "application/yang-data+xml":
                     try:
                         xml_in = xml.decode(request.body.decode())
-                        input_config = cfs_layer.from_xml(xml_in)
+                        input_config = yang.gen3.from_data(top_schema, xml_in, loose=True)
                     except Exception as e:
                         respond(400, {}, "Error parsing XML: {e}")
                         return
@@ -545,7 +565,7 @@ actor main(env):
             config = configs.pop(0)
             # Grab the first config
             log.info("Applying config file...", {"config_file": config.filename})
-            input_config = cfs_layer.from_xml(config.config)
+            input_config = yang.gen3.from_data(top_schema, config.config, loose=True)
             session.edit_config(input_config, None, lambda result: _conf_file_done(config, result))
         except IndexError:
             log.info("All config files applied")
