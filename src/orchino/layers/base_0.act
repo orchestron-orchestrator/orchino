@@ -7,9 +7,10 @@ import xml
 import orchestron.ttt as ttt
 import yang.adata
 import yang.gdata
+import yang.gen3
 
 from orchino.layers.y_0 import netinfra__netinfra__router_entry
-from orchino.layers.y_0 import from_xml_netinfra__netinfra__router_element
+from orchino.layers.y_0 import SRC_DNODE
 from orchino.layers.y_1_loose import root as output_root
 
 def o_root():
@@ -36,7 +37,7 @@ class Router(ttt.TransformFunction):
         """Wrap the user provided transform method to convert from XML to
         modeled input and return gdata
         """
-        gdata_input = from_xml_netinfra__netinfra__router_element(i)
+        gdata_input = yang.gen3.from_data(SRC_DNODE, i, loose=False, root_path=['netinfra:netinfra', 'router'])
         modeled_input = netinfra__netinfra__router_entry.from_gdata(gdata_input)
 
         return self.transform(modeled_input).to_gdata(), None

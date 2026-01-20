@@ -5,12 +5,67 @@ import yang
 import yang.adata
 import yang.gdata
 import yang.gen3
-from yang.identity import complete_and_validate_identityref
+import yang.xpath
 from yang.identityref import Identityref, PartialIdentityref
-from yang.schema import DIdentity
+from yang.pattern import YangPattern
+from yang.schema import *
+from yang.type import Decimal, Ranges
 
 # == This file is generated ==
 
+
+
+
+_identities: list[DIdentity] = []
+
+
+SRC_DNODE = DRoot(children=[
+    DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='interfaces', config=True, description='Interface configuration', presence=False, children=[
+        DList(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='interface', key=['interface-name'], config=True, description='Interface configuration subcommands', min_elements=0, ordered_by='system', children=[
+            DLeaf(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='interface-name', config=True, description='Interface configuration subcommands', mandatory=False, type_=DTypeString(name='xr:Interface-name', description='An interface name specifying an interface type and\ninstance.\nInterface represents a string defining an interface\ntype and instance, e.g. MgmtEth0/4/CPU1/0 or\nTenGigE0/2/0/0.2 or Bundle-Ether9 or\nBundle-Ether9.98 or Serial0/0/0/0/3/1:1', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='[a-zA-Z0-9.:_/-]+', pcre='^([a-zA-Z0-9.:_/-]+)$', invert=False)])),
+            DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='sub-interface-type', config=True, description='Specify type of sub-interface', presence=False, children=[
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='l2transport', config=True, description='l2transport sub-interface', presence=True),
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='point-to-point', config=True, description='point-to-point sub-interface', presence=True),
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='multipoint', config=True, description='multipoint sub-interface', presence=True)
+            ]),
+            DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='ipv4', config=True, description='Interface IPv4 config commands', presence=False, children=[
+                DContainer(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='addresses', config=True, description='Set the IPv4 address of an interface', presence=False, children=[
+                    DContainer(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='address', config=True, description='IP address and Mask', presence=True, children=[
+                        DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='address', config=True, description='IP address', mandatory=True, type_=DTypeString(name='inet:ipv4-address-no-zone', description='An IPv4 address without a zone index.  This type, derived from\nipv4-address, may be used in situations where the zone is\nknown from the context and hence no zone index is needed.', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?', pcre='^((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?)$', invert=False), YangPattern(yang_regex='[0-9\\.]*', pcre='^([0-9\\.]*)$', invert=False)])),
+                        DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='netmask', config=True, description='IP subnet mask', mandatory=True, type_=DTypeString(name='inet:ipv4-address-no-zone', description='An IPv4 address without a zone index.  This type, derived from\nipv4-address, may be used in situations where the zone is\nknown from the context and hence no zone index is needed.', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?', pcre='^((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?)$', invert=False), YangPattern(yang_regex='[0-9\\.]*', pcre='^([0-9\\.]*)$', invert=False)])),
+                        DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='route-tag', config=True, description='Route-tag to be associated with this address', mandatory=False, type_=DTypeInteger(name='uint32', description=None, reference=None, exts=[], builtin_type='uint32', default=None, ranges=Ranges([(bigint("1"), bigint("4294967295"))]))),
+                        DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='algorithm', config=True, description='Algorithm to be associated with this address', mandatory=False, type_=DTypeInteger(name='uint32', description=None, reference=None, exts=[], builtin_type='uint32', default=None, ranges=Ranges([(bigint("128"), bigint("255"))])))
+                    ]),
+                    DContainer(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='secondaries', config=True, description='Specify a secondary address', presence=False, children=[
+                        DList(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='secondary', key=['address'], config=True, description='IP address and Mask', min_elements=0, ordered_by='system', children=[
+                            DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='address', config=True, description='Secondary IP address', mandatory=False, type_=DTypeString(name='inet:ipv4-address-no-zone', description='An IPv4 address without a zone index.  This type, derived from\nipv4-address, may be used in situations where the zone is\nknown from the context and hence no zone index is needed.', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?', pcre='^((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?)$', invert=False), YangPattern(yang_regex='[0-9\\.]*', pcre='^([0-9\\.]*)$', invert=False)])),
+                            DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='netmask', config=True, description='Netmask', mandatory=True, type_=DTypeString(name='inet:ipv4-address-no-zone', description='An IPv4 address without a zone index.  This type, derived from\nipv4-address, may be used in situations where the zone is\nknown from the context and hence no zone index is needed.', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?', pcre='^((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){{3}}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\\p{{N}}\\p{{L}}]+)?)$', invert=False), YangPattern(yang_regex='[0-9\\.]*', pcre='^([0-9\\.]*)$', invert=False)])),
+                            DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='route-tag', config=True, description='Route-tag to be associated with this address', mandatory=False, type_=DTypeInteger(name='uint32', description=None, reference=None, exts=[], builtin_type='uint32', default=None, ranges=Ranges([(bigint("1"), bigint("4294967295"))]))),
+                            DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='algorithm', config=True, description='Algorithm to be associated with this address', mandatory=False, type_=DTypeInteger(name='uint32', description=None, reference=None, exts=[], builtin_type='uint32', default=None, ranges=Ranges([(bigint("128"), bigint("255"))])))
+                        ])
+                    ]),
+                    DLeaf(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='unnumbered', config=True, description='Enable IP processing without an explicit address', mandatory=False, type_=DTypeString(name='xr:Interface-name', description='An interface name specifying an interface type and\ninstance.\nInterface represents a string defining an interface\ntype and instance, e.g. MgmtEth0/4/CPU1/0 or\nTenGigE0/2/0/0.2 or Bundle-Ether9 or\nBundle-Ether9.98 or Serial0/0/0/0/3/1:1', reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[YangPattern(yang_regex='[a-zA-Z0-9.:_/-]+', pcre='^([a-zA-Z0-9.:_/-]+)$', invert=False)]), when="../../../um-interface-cfg:interface-name[not(starts-with(text(),'pw-ether'))]"),
+                    DContainer(module='Cisco-IOS-XR-um-if-ip-address-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', prefix='um-if-ip-address-cfg', name='dhcp', config=True, description='IPv4 address and Mask negotiated via DHCP', presence=True, when="../../../um-interface-cfg:interface-name[starts-with(text(),'MgmtEth')] or ../../../um-interface-cfg:interface-name[starts-with(text(),'BVI')]")
+                ])
+            ]),
+            DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='ipv6', config=True, description='Interface IPv6 config commands', presence=False),
+            DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='encapsulation', config=True, description='Set the encapsulation on an interface', presence=False, when="../interface-name[starts-with(text(),'POS')] or ../interface-name[starts-with(text(),'serial')] or ../interface-name[starts-with(text(),'multilink')]", children=[
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='ppp', config=True, description='Point-to-Point protocol', presence=True),
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='hdlc', config=True, description='Serial HDLC synchronous', presence=True),
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='mfr', config=True, description='Multilink Frame Relay Member Link', presence=True, when="../../interface-name[starts-with(text(),'serial')]"),
+                DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='frame-relay', config=True, description='Frame Relay networks', presence=True, when="../../interface-name[not(contains(text(),'.'))]", children=[
+                    DContainer(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='IETF', config=True, description='Use RFC1490/RFC2427 encapsulation', presence=True)
+                ])
+            ]),
+            DLeaf(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='shutdown', config=True, description='shutdown the given interface', mandatory=False, type_=DTypeEmpty(name='empty', description=None, reference=None, exts=[], builtin_type='empty', default=None)),
+            DLeaf(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='mtu', config=True, description='Set the MTU on an interface', mandatory=False, type_=DTypeInteger(name='uint32', description=None, reference=None, exts=[], builtin_type='uint32', default=None, ranges=Ranges([(bigint("64"), bigint("65535"))])), when="../interface-name[not(starts-with(text(),'SBC'))] and ../interface-name[not(starts-with(text(),'tunnel-te'))] and ../interface-name[not(starts-with(text(),'tunnel-mte'))] and ../interface-name[not(starts-with(text(),'VASILeft'))] and ../interface-name[not(starts-with(text(),'VASIRight'))] and ../interface-name[not(starts-with(text(),'service-gre'))] and ../interface-name[not(starts-with(text(),'service-ipsec'))] and ../interface-name[not(starts-with(text(),'InterflexLeft'))] and ../interface-name[not(starts-with(text(),'InterflexRight'))] and ../interface-name[not(starts-with(text(),'CEM'))]"),
+            DLeaf(module='Cisco-IOS-XR-um-interface-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', prefix='um-interface-cfg', name='description', config=True, description='Set description for this interface', mandatory=False, type_=DTypeString(name='string', description=None, reference=None, exts=[], builtin_type='string', default=None, length=Ranges([(1, 1024)]), patterns=[]))
+        ])
+    ]),
+    DContainer(module='Cisco-IOS-XR-um-hostname-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg', prefix='um-hostname-cfg', name='hostname', config=True, description="Set system's network name", presence=False, children=[
+        DLeaf(module='Cisco-IOS-XR-um-hostname-cfg', namespace='http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg', prefix='um-hostname-cfg', name='system-network-name', config=True, description="Set system's network name", mandatory=False, type_=DTypeString(name='xr:Cisco-ios-xr-string', description='Special characters are not allowed.', reference=None, exts=[], builtin_type='string', default=None, length=Ranges([(1, 253)]), patterns=[YangPattern(yang_regex='[\\w\\-\\.:,_@#%$\\+=\\| ;]+', pcre='^(([\\-\\.:,_@#%$\\+=\\| ;]|(?![\\p{{P}}\\p{{Z}}\\p{{C}}])[\\x{{0000}}-\\x{{10FFFF}}])+)$', invert=False), YangPattern(yang_regex='[a-zA-Z0-9_\\.-]+', pcre='^([a-zA-Z0-9_\\.-]+)$', invert=False)]))
+    ])
+])
 
 def src_yang():
     res = []
@@ -2282,8 +2337,10 @@ def src_yang():
     return res
 
 
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__interface_name(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
+NS_Cisco_IOS_XR_um_hostname_cfg = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg'
+NS_Cisco_IOS_XR_um_if_ip_address_cfg = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg'
+NS_Cisco_IOS_XR_um_interface_cfg = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg'
+
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport(yang.adata.MNode):
 
@@ -2292,8 +2349,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'l2transport'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport:
@@ -2301,28 +2359,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/sub-interface-type/l2transport')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/sub-interface-type/l2transport'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'l2transport'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point(yang.adata.MNode):
 
@@ -2331,8 +2374,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'point-to-point'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point:
@@ -2340,28 +2384,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/sub-interface-type/point-to-point')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/sub-interface-type/point-to-point'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'point-to-point'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint(yang.adata.MNode):
 
@@ -2370,8 +2399,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'multipoint'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint:
@@ -2379,28 +2409,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/sub-interface-type/multipoint')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/sub-interface-type/multipoint'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type', 'multipoint'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type(yang.adata.MNode):
     l2transport: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport
@@ -2414,247 +2429,133 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type(y
         self.multipoint = multipoint
 
     mut def create_l2transport(self):
+        existing = self.l2transport
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport()
         self.l2transport = res
         return res
 
     mut def create_point_to_point(self):
+        existing = self.point_to_point
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point()
         self.point_to_point = res
         return res
 
     mut def create_multipoint(self):
+        existing = self.multipoint
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint()
         self.multipoint = res
         return res
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'l2transport':
+            return self.l2transport
+        if name == 'point_to_point':
+            return self.point_to_point
+        if name == 'multipoint':
+            return self.multipoint
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _l2transport = self.l2transport
-        if _l2transport is not None:
-            children['l2transport'] = _l2transport.to_gdata()
-        _point_to_point = self.point_to_point
-        if _point_to_point is not None:
-            children['point-to-point'] = _point_to_point.to_gdata()
-        _multipoint = self.multipoint
-        if _multipoint is not None:
-            children['multipoint'] = _multipoint.to_gdata()
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type(l2transport=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport.from_gdata(n.get_opt_cnt('l2transport')), point_to_point=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point.from_gdata(n.get_opt_cnt('point-to-point')), multipoint=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint.from_gdata(n.get_opt_cnt('multipoint')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type(l2transport=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'l2transport'))), point_to_point=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'point-to-point'))), multipoint=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'multipoint'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/sub-interface-type')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type()')
-        leaves = []
-        _l2transport = self.l2transport
-        if _l2transport is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/sub-interface-type/l2transport')
-            res.append('l2transport = {self_name}.create_l2transport()')
-            res.extend(_l2transport.prsrc('l2transport', False).splitlines())
-        _point_to_point = self.point_to_point
-        if _point_to_point is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/sub-interface-type/point-to-point')
-            res.append('point_to_point = {self_name}.create_point_to_point()')
-            res.extend(_point_to_point.prsrc('point_to_point', False).splitlines())
-        _multipoint = self.multipoint
-        if _multipoint is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/sub-interface-type/multipoint')
-            res.append('multipoint = {self_name}.create_multipoint()')
-            res.extend(_multipoint.prsrc('multipoint', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/sub-interface-type'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'sub-interface-type'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_l2transport = yang.gdata.from_xml_opt_cnt(node, 'l2transport')
-    yang.gdata.maybe_add(children, 'l2transport', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__l2transport, child_l2transport)
-    child_point_to_point = yang.gdata.from_xml_opt_cnt(node, 'point-to-point')
-    yang.gdata.maybe_add(children, 'point-to-point', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__point_to_point, child_point_to_point)
-    child_multipoint = yang.gdata.from_xml_opt_cnt(node, 'multipoint')
-    yang.gdata.maybe_add(children, 'multipoint', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type__multipoint, child_multipoint)
-    return yang.gdata.Container(children)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__address(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__netmask(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__route_tag(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('uint32', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__algorithm(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('uint32', val)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address(yang.adata.MNode):
     address: ?str
     netmask: ?str
-    route_tag: ?int
-    algorithm: ?int
+    route_tag: ?bigint
+    algorithm: ?bigint
 
-    mut def __init__(self, address: ?str, netmask: ?str, route_tag: ?int, algorithm: ?int):
+    mut def __init__(self, address: ?str, netmask: ?str, route_tag: ?bigint, algorithm: ?bigint):
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg'
         self.address = address
         self.netmask = netmask
         self.route_tag = route_tag
         self.algorithm = algorithm
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'address':
+            return self.address
+        if name == 'netmask':
+            return self.netmask
+        if name == 'route_tag':
+            return self.route_tag
+        if name == 'algorithm':
+            return self.algorithm
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _address = self.address
-        if _address is not None:
-            children['address'] = yang.gdata.Leaf('string', _address)
-        _netmask = self.netmask
-        if _netmask is not None:
-            children['netmask'] = yang.gdata.Leaf('string', _netmask)
-        _route_tag = self.route_tag
-        if _route_tag is not None:
-            children['route-tag'] = yang.gdata.Leaf('uint32', _route_tag)
-        _algorithm = self.algorithm
-        if _algorithm is not None:
-            children['algorithm'] = yang.gdata.Leaf('uint32', _algorithm)
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4', 'Cisco-IOS-XR-um-if-ip-address-cfg:addresses', 'address'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address(address=n.get_opt_str('address'), netmask=n.get_opt_str('netmask'), route_tag=n.get_opt_int('route-tag'), algorithm=n.get_opt_int('algorithm'))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address(address=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'address')), netmask=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'netmask')), route_tag=n.get_opt_bigint(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'route-tag')), algorithm=n.get_opt_bigint(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'algorithm')))
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4/addresses/address')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address()')
-        leaves = []
-        _address = self.address
-        if _address is not None:
-            leaves.append('{self_name}.address = {repr(_address)}')
-        _netmask = self.netmask
-        if _netmask is not None:
-            leaves.append('{self_name}.netmask = {repr(_netmask)}')
-        _route_tag = self.route_tag
-        if _route_tag is not None:
-            leaves.append('{self_name}.route_tag = {repr(_route_tag)}')
-        _algorithm = self.algorithm
-        if _algorithm is not None:
-            leaves.append('{self_name}.algorithm = {repr(_algorithm)}')
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4/addresses/address'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-if-ip-address-cfg:interfaces', 'interface', 'ipv4', 'addresses', 'address'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_address = yang.gdata.from_xml_opt_str(node, 'address')
-    yang.gdata.maybe_add(children, 'address', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__address, child_address)
-    child_netmask = yang.gdata.from_xml_opt_str(node, 'netmask')
-    yang.gdata.maybe_add(children, 'netmask', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__netmask, child_netmask)
-    child_route_tag = yang.gdata.from_xml_opt_int(node, 'route-tag')
-    yang.gdata.maybe_add(children, 'route-tag', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__route_tag, child_route_tag)
-    child_algorithm = yang.gdata.from_xml_opt_int(node, 'algorithm')
-    yang.gdata.maybe_add(children, 'algorithm', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address__algorithm, child_algorithm)
-    return yang.gdata.Container(children, presence=True)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__address(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__netmask(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__route_tag(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('uint32', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__algorithm(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('uint32', val)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry(yang.adata.MNode):
     address: str
     netmask: ?str
-    route_tag: ?int
-    algorithm: ?int
+    route_tag: ?bigint
+    algorithm: ?bigint
 
-    mut def __init__(self, address: str, netmask: ?str, route_tag: ?int, algorithm: ?int):
+    mut def __init__(self, address: str, netmask: ?str, route_tag: ?bigint, algorithm: ?bigint):
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg'
         self.address = address
         self.netmask = netmask
         self.route_tag = route_tag
         self.algorithm = algorithm
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'address':
+            return self.address
+        if name == 'netmask':
+            return self.netmask
+        if name == 'route_tag':
+            return self.route_tag
+        if name == 'algorithm':
+            return self.algorithm
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _address = self.address
-        if _address is not None:
-            children['address'] = yang.gdata.Leaf('string', _address)
-        _netmask = self.netmask
-        if _netmask is not None:
-            children['netmask'] = yang.gdata.Leaf('string', _netmask)
-        _route_tag = self.route_tag
-        if _route_tag is not None:
-            children['route-tag'] = yang.gdata.Leaf('uint32', _route_tag)
-        _algorithm = self.algorithm
-        if _algorithm is not None:
-            children['algorithm'] = yang.gdata.Leaf('uint32', _algorithm)
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4', 'Cisco-IOS-XR-um-if-ip-address-cfg:addresses', 'secondaries', 'secondary'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
-        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry(address=n.get_str('address'), netmask=n.get_opt_str('netmask'), route_tag=n.get_opt_int('route-tag'), algorithm=n.get_opt_int('algorithm'))
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry(address=n.get_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'address')), netmask=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'netmask')), route_tag=n.get_opt_bigint(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'route-tag')), algorithm=n.get_opt_bigint(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'algorithm')))
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4/addresses/secondaries/secondary')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary({repr(self.address)})')
-        leaves = []
-        _netmask = self.netmask
-        if _netmask is not None:
-            leaves.append('{self_name}.netmask = {repr(_netmask)}')
-        _route_tag = self.route_tag
-        if _route_tag is not None:
-            leaves.append('{self_name}.route_tag = {repr(_route_tag)}')
-        _algorithm = self.algorithm
-        if _algorithm is not None:
-            leaves.append('{self_name}.algorithm = {repr(_algorithm)}')
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4/addresses/secondaries/secondary'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
-
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-if-ip-address-cfg:interfaces', 'interface', 'ipv4', 'addresses', 'secondaries', 'secondary'])
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry.from_gdata(self.to_gdata())
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(yang.adata.MNode):
     elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]
@@ -2664,7 +2565,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
         self.elements = elements
 
     mut def create(self, address, netmask):
-        for e in self.elements:
+        for e in self:
             match = True
             if e.address != address:
                 match = False
@@ -2676,36 +2577,25 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
         self.elements.append(res)
         return res
 
-    mut def to_gdata(self):
-        elements = []
-        for e in self.elements:
-            e_gdata = e.to_gdata()
-            if isinstance(e_gdata, yang.gdata.Container):
-                elements.append(e_gdata)
-        return yang.gdata.List(['address'], elements)
-
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.List) -> list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]:
         if n is not None:
             return [Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry.from_gdata(e) for e in n.elements]
         return []
 
+    def copy(self):
+        """Create a deep copy of this list object"""
+        # Copy each element in the list
+        copied_elements = []
+        for e in self:
+            ce = e.copy()
+            if ce is not None:
+                copied_elements.append(ce)
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(elements=copied_elements)
 
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_element(node: xml.Node) -> yang.gdata.Node:
-    children = {}
-    child_address = yang.gdata.from_xml_str(node, 'address')
-    yang.gdata.maybe_add(children, 'address', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__address, child_address)
-    child_netmask = yang.gdata.from_xml_opt_str(node, 'netmask')
-    yang.gdata.maybe_add(children, 'netmask', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__netmask, child_netmask)
-    child_route_tag = yang.gdata.from_xml_opt_int(node, 'route-tag')
-    yang.gdata.maybe_add(children, 'route-tag', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__route_tag, child_route_tag)
-    child_algorithm = yang.gdata.from_xml_opt_int(node, 'algorithm')
-    yang.gdata.maybe_add(children, 'algorithm', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary__algorithm, child_algorithm)
-    return yang.gdata.Container(children)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(nodes: list[xml.Node]) -> yang.gdata.List:
-    elements = [from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_element(e) for e in nodes]
-    return yang.gdata.List(keys=['address'], elements=elements)
+extension Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(Iterable[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
+    def __iter__(self) -> Iterator[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]:
+        return self.elements.__iter__()
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries(yang.adata.MNode):
     secondary: Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary
@@ -2714,53 +2604,26 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg'
         self.secondary = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(elements=secondary)
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'secondary':
+            return iter(self.secondary)
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _secondary = self.secondary
-        if _secondary is not None:
-            children['secondary'] = _secondary.to_gdata()
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4', 'Cisco-IOS-XR-um-if-ip-address-cfg:addresses', 'secondaries'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries(secondary=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary.from_gdata(n.get_opt_list('secondary')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries(secondary=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary.from_gdata(n.get_opt_list(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'secondary'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4/addresses/secondaries')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries()')
-        leaves = []
-        _secondary = self.secondary
-        for _element in _secondary.elements:
-            res.append('')
-            res.append("# List /interfaces/interface/ipv4/addresses/secondaries/secondary element: {_element.to_gdata().key_str(['address'])}")
-            list_elem = 'secondary_element = {self_name}.secondary.create({repr(_element.address)})'
-            res.append(list_elem)
-            res.extend(_element.prsrc('secondary_element', False, list_element=True).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4/addresses/secondaries'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-if-ip-address-cfg:interfaces', 'interface', 'ipv4', 'addresses', 'secondaries'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_secondary = yang.gdata.from_xml_opt_list(node, 'secondary')
-    yang.gdata.maybe_add(children, 'secondary', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary, child_secondary)
-    return yang.gdata.Container(children)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__unnumbered(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp(yang.adata.MNode):
 
@@ -2769,8 +2632,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhc
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4', 'Cisco-IOS-XR-um-if-ip-address-cfg:addresses', 'dhcp'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp:
@@ -2778,28 +2642,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhc
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4/addresses/dhcp')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4/addresses/dhcp'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-if-ip-address-cfg:interfaces', 'interface', 'ipv4', 'addresses', 'dhcp'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses(yang.adata.MNode):
     address: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address
@@ -2815,85 +2664,47 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses(yang
         self.dhcp = dhcp
 
     mut def create_address(self, address, netmask):
+        existing = self.address
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address(address, netmask)
         self.address = res
         return res
 
     mut def create_dhcp(self):
+        existing = self.dhcp
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp()
         self.dhcp = res
         return res
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'address':
+            return self.address
+        if name == 'secondaries':
+            return self.secondaries
+        if name == 'unnumbered':
+            return self.unnumbered
+        if name == 'dhcp':
+            return self.dhcp
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _address = self.address
-        if _address is not None:
-            children['address'] = _address.to_gdata()
-        _secondaries = self.secondaries
-        if _secondaries is not None:
-            children['secondaries'] = _secondaries.to_gdata()
-        _unnumbered = self.unnumbered
-        if _unnumbered is not None:
-            children['unnumbered'] = yang.gdata.Leaf('string', _unnumbered)
-        _dhcp = self.dhcp
-        if _dhcp is not None:
-            children['dhcp'] = _dhcp.to_gdata()
-        return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', module='Cisco-IOS-XR-um-if-ip-address-cfg')
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4', 'Cisco-IOS-XR-um-if-ip-address-cfg:addresses'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses(address=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address.from_gdata(n.get_opt_cnt('address')), secondaries=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries.from_gdata(n.get_opt_cnt('secondaries')), unnumbered=n.get_opt_str('unnumbered'), dhcp=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp.from_gdata(n.get_opt_cnt('dhcp')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses(address=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'address'))), secondaries=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'secondaries'))), unnumbered=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'unnumbered')), dhcp=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'dhcp'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4/addresses')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses()')
-        leaves = []
-        _address = self.address
-        if _address is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/ipv4/addresses/address')
-            res.append('address = {self_name}.create_address()')
-            res.extend(_address.prsrc('address', False).splitlines())
-        _secondaries = self.secondaries
-        if _secondaries is not None:
-            res.extend(_secondaries.prsrc('{self_name}.secondaries', False).splitlines())
-        _unnumbered = self.unnumbered
-        if _unnumbered is not None:
-            leaves.append('{self_name}.unnumbered = {repr(_unnumbered)}')
-        _dhcp = self.dhcp
-        if _dhcp is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/ipv4/addresses/dhcp')
-            res.append('dhcp = {self_name}.create_dhcp()')
-            res.extend(_dhcp.prsrc('dhcp', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4/addresses'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-if-ip-address-cfg:interfaces', 'interface', 'ipv4', 'addresses'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_address = yang.gdata.from_xml_opt_cnt(node, 'address')
-    yang.gdata.maybe_add(children, 'address', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__address, child_address)
-    child_secondaries = yang.gdata.from_xml_opt_cnt(node, 'secondaries')
-    yang.gdata.maybe_add(children, 'secondaries', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries, child_secondaries)
-    child_unnumbered = yang.gdata.from_xml_opt_str(node, 'unnumbered')
-    yang.gdata.maybe_add(children, 'unnumbered', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__unnumbered, child_unnumbered)
-    child_dhcp = yang.gdata.from_xml_opt_cnt(node, 'dhcp')
-    yang.gdata.maybe_add(children, 'dhcp', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__dhcp, child_dhcp)
-    return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg', module='Cisco-IOS-XR-um-if-ip-address-cfg')
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4(yang.adata.MNode):
     addresses: Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses
@@ -2902,46 +2713,26 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4(yang.adata.MNod
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg'
         self.addresses = addresses if addresses is not None else Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses()
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'addresses':
+            return self.addresses
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _addresses = self.addresses
-        if _addresses is not None:
-            children['addresses'] = _addresses.to_gdata()
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4(addresses=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses.from_gdata(n.get_opt_cnt('addresses')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4(addresses=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_if_ip_address_cfg, 'addresses'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv4')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4()')
-        leaves = []
-        _addresses = self.addresses
-        if _addresses is not None:
-            res.extend(_addresses.prsrc('{self_name}.addresses', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv4'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv4'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_addresses = yang.gdata.from_xml_opt_cnt(node, 'addresses', 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg')
-    yang.gdata.maybe_add(children, 'addresses', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses, child_addresses)
-    return yang.gdata.Container(children)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6(yang.adata.MNode):
 
@@ -2950,8 +2741,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6(yang.adata.MNod
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv6'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6:
@@ -2959,28 +2751,10 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6(yang.adata.MNod
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6()
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/ipv6')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/ipv6'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'ipv6'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp(yang.adata.MNode):
 
@@ -2989,8 +2763,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp(y
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'ppp'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp:
@@ -2998,28 +2773,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp(y
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation/ppp')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation/ppp'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'ppp'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc(yang.adata.MNode):
 
@@ -3028,8 +2788,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc(
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'hdlc'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc:
@@ -3037,28 +2798,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc(
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation/hdlc')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation/hdlc'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'hdlc'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr(yang.adata.MNode):
 
@@ -3067,8 +2813,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr(y
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'mfr'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr:
@@ -3076,28 +2823,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr(y
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation/mfr')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation/mfr'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'mfr'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF(yang.adata.MNode):
 
@@ -3106,8 +2838,9 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame
         pass
 
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'frame-relay', 'IETF'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF:
@@ -3115,28 +2848,13 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame
             return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF()
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation/frame-relay/IETF')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF()')
-        leaves = []
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation/frame-relay/IETF'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'frame-relay', 'IETF'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay(yang.adata.MNode):
     IETF: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF
@@ -3146,53 +2864,36 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame
         self.IETF = IETF
 
     mut def create_IETF(self):
+        existing = self.IETF
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF()
         self.IETF = res
         return res
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'IETF':
+            return self.IETF
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _IETF = self.IETF
-        if _IETF is not None:
-            children['IETF'] = _IETF.to_gdata()
-        return yang.gdata.Container(children, presence=True)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'frame-relay'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay(IETF=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF.from_gdata(n.get_opt_cnt('IETF')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay(IETF=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'IETF'))))
         return None
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation/frame-relay')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay()')
-        leaves = []
-        _IETF = self.IETF
-        if _IETF is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/encapsulation/frame-relay/IETF')
-            res.append('IETF = {self_name}.create_IETF()')
-            res.extend(_IETF.prsrc('IETF', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation/frame-relay'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        ad = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay.from_gdata(self.to_gdata())
+        if ad is not None:
+            return ad
+        raise Exception('Unreachable in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay.copy()')
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation', 'frame-relay'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_IETF = yang.gdata.from_xml_opt_cnt(node, 'IETF')
-    yang.gdata.maybe_add(children, 'IETF', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay__IETF, child_IETF)
-    return yang.gdata.Container(children, presence=True)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation(yang.adata.MNode):
     ppp: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp
@@ -3208,110 +2909,63 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation(yang.a
         self.frame_relay = frame_relay
 
     mut def create_ppp(self):
+        existing = self.ppp
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp()
         self.ppp = res
         return res
 
     mut def create_hdlc(self):
+        existing = self.hdlc
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc()
         self.hdlc = res
         return res
 
     mut def create_mfr(self):
+        existing = self.mfr
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr()
         self.mfr = res
         return res
 
     mut def create_frame_relay(self):
+        existing = self.frame_relay
+        if existing is not None:
+            return existing
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay()
         self.frame_relay = res
         return res
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'ppp':
+            return self.ppp
+        if name == 'hdlc':
+            return self.hdlc
+        if name == 'mfr':
+            return self.mfr
+        if name == 'frame_relay':
+            return self.frame_relay
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _ppp = self.ppp
-        if _ppp is not None:
-            children['ppp'] = _ppp.to_gdata()
-        _hdlc = self.hdlc
-        if _hdlc is not None:
-            children['hdlc'] = _hdlc.to_gdata()
-        _mfr = self.mfr
-        if _mfr is not None:
-            children['mfr'] = _mfr.to_gdata()
-        _frame_relay = self.frame_relay
-        if _frame_relay is not None:
-            children['frame-relay'] = _frame_relay.to_gdata()
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation(ppp=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp.from_gdata(n.get_opt_cnt('ppp')), hdlc=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc.from_gdata(n.get_opt_cnt('hdlc')), mfr=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr.from_gdata(n.get_opt_cnt('mfr')), frame_relay=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay.from_gdata(n.get_opt_cnt('frame-relay')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation(ppp=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'ppp'))), hdlc=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'hdlc'))), mfr=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'mfr'))), frame_relay=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'frame-relay'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface/encapsulation')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation()')
-        leaves = []
-        _ppp = self.ppp
-        if _ppp is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/encapsulation/ppp')
-            res.append('ppp = {self_name}.create_ppp()')
-            res.extend(_ppp.prsrc('ppp', False).splitlines())
-        _hdlc = self.hdlc
-        if _hdlc is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/encapsulation/hdlc')
-            res.append('hdlc = {self_name}.create_hdlc()')
-            res.extend(_hdlc.prsrc('hdlc', False).splitlines())
-        _mfr = self.mfr
-        if _mfr is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/encapsulation/mfr')
-            res.append('mfr = {self_name}.create_mfr()')
-            res.extend(_mfr.prsrc('mfr', False).splitlines())
-        _frame_relay = self.frame_relay
-        if _frame_relay is not None:
-            res.append('')
-            res.append('# P-container: /interfaces/interface/encapsulation/frame-relay')
-            res.append('frame_relay = {self_name}.create_frame_relay()')
-            res.extend(_frame_relay.prsrc('frame_relay', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface/encapsulation'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface', 'encapsulation'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_ppp = yang.gdata.from_xml_opt_cnt(node, 'ppp')
-    yang.gdata.maybe_add(children, 'ppp', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__ppp, child_ppp)
-    child_hdlc = yang.gdata.from_xml_opt_cnt(node, 'hdlc')
-    yang.gdata.maybe_add(children, 'hdlc', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__hdlc, child_hdlc)
-    child_mfr = yang.gdata.from_xml_opt_cnt(node, 'mfr')
-    yang.gdata.maybe_add(children, 'mfr', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__mfr, child_mfr)
-    child_frame_relay = yang.gdata.from_xml_opt_cnt(node, 'frame-relay')
-    yang.gdata.maybe_add(children, 'frame-relay', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation__frame_relay, child_frame_relay)
-    return yang.gdata.Container(children)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__shutdown(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('empty', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__mtu(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('uint32', val)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__description(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yang.adata.MNode):
     interface_name: str
@@ -3320,10 +2974,10 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yang.adata.MNod
     ipv6: Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6
     encapsulation: Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation
     shutdown: ?bool
-    mtu: ?int
+    mtu: ?bigint
     description: ?str
 
-    mut def __init__(self, interface_name: str, sub_interface_type: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type=None, ipv4: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4=None, ipv6: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6=None, encapsulation: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation=None, shutdown: ?bool, mtu: ?int, description: ?str):
+    mut def __init__(self, interface_name: str, sub_interface_type: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type=None, ipv4: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4=None, ipv6: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6=None, encapsulation: ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation=None, shutdown: ?bool, mtu: ?bigint, description: ?str):
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg'
         self.interface_name = interface_name
         self.sub_interface_type = sub_interface_type if sub_interface_type is not None else Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type()
@@ -3334,76 +2988,37 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yang.adata.MNod
         self.mtu = mtu
         self.description = description
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'interface_name':
+            return self.interface_name
+        if name == 'sub_interface_type':
+            return self.sub_interface_type
+        if name == 'ipv4':
+            return self.ipv4
+        if name == 'ipv6':
+            return self.ipv6
+        if name == 'encapsulation':
+            return self.encapsulation
+        if name == 'shutdown':
+            return self.shutdown
+        if name == 'mtu':
+            return self.mtu
+        if name == 'description':
+            return self.description
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces__interface')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _interface_name = self.interface_name
-        if _interface_name is not None:
-            children['interface-name'] = yang.gdata.Leaf('string', _interface_name)
-        _sub_interface_type = self.sub_interface_type
-        if _sub_interface_type is not None:
-            children['sub-interface-type'] = _sub_interface_type.to_gdata()
-        _ipv4 = self.ipv4
-        if _ipv4 is not None:
-            children['ipv4'] = _ipv4.to_gdata()
-        _ipv6 = self.ipv6
-        if _ipv6 is not None:
-            children['ipv6'] = _ipv6.to_gdata()
-        _encapsulation = self.encapsulation
-        if _encapsulation is not None:
-            children['encapsulation'] = _encapsulation.to_gdata()
-        _shutdown = self.shutdown
-        if _shutdown is not None:
-            children['shutdown'] = yang.gdata.Leaf('empty', _shutdown)
-        _mtu = self.mtu
-        if _mtu is not None:
-            children['mtu'] = yang.gdata.Leaf('uint32', _mtu)
-        _description = self.description
-        if _description is not None:
-            children['description'] = yang.gdata.Leaf('string', _description)
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
-        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(interface_name=n.get_str('interface-name'), sub_interface_type=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type.from_gdata(n.get_opt_cnt('sub-interface-type')), ipv4=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4.from_gdata(n.get_opt_cnt('ipv4')), ipv6=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6.from_gdata(n.get_opt_cnt('ipv6')), encapsulation=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation.from_gdata(n.get_opt_cnt('encapsulation')), shutdown=n.get_opt_empty('shutdown'), mtu=n.get_opt_int('mtu'), description=n.get_opt_str('description'))
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(interface_name=n.get_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'interface-name')), sub_interface_type=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'sub-interface-type'))), ipv4=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'ipv4'))), ipv6=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'ipv6'))), encapsulation=Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'encapsulation'))), shutdown=n.get_opt_empty(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'shutdown')), mtu=n.get_opt_bigint(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'mtu')), description=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'description')))
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces/interface')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces__interface({repr(self.interface_name)})')
-        leaves = []
-        _sub_interface_type = self.sub_interface_type
-        if _sub_interface_type is not None:
-            res.extend(_sub_interface_type.prsrc('{self_name}.sub_interface_type', False).splitlines())
-        _ipv4 = self.ipv4
-        if _ipv4 is not None:
-            res.extend(_ipv4.prsrc('{self_name}.ipv4', False).splitlines())
-        _ipv6 = self.ipv6
-        if _ipv6 is not None:
-            res.extend(_ipv6.prsrc('{self_name}.ipv6', False).splitlines())
-        _encapsulation = self.encapsulation
-        if _encapsulation is not None:
-            res.extend(_encapsulation.prsrc('{self_name}.encapsulation', False).splitlines())
-        _shutdown = self.shutdown
-        if _shutdown is not None:
-            leaves.append('{self_name}.shutdown = {repr(_shutdown)}')
-        _mtu = self.mtu
-        if _mtu is not None:
-            leaves.append('{self_name}.mtu = {repr(_mtu)}')
-        _description = self.description
-        if _description is not None:
-            leaves.append('{self_name}.description = {repr(_description)}')
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces/interface'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
-
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces', 'interface'])
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry.from_gdata(self.to_gdata())
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yang.adata.MNode):
     elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]
@@ -3413,7 +3028,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yang.adata.MNode):
         self.elements = elements
 
     mut def create(self, interface_name):
-        for e in self.elements:
+        for e in self:
             match = True
             if e.interface_name != interface_name:
                 match = False
@@ -3425,44 +3040,25 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yang.adata.MNode):
         self.elements.append(res)
         return res
 
-    mut def to_gdata(self):
-        elements = []
-        for e in self.elements:
-            e_gdata = e.to_gdata()
-            if isinstance(e_gdata, yang.gdata.Container):
-                elements.append(e_gdata)
-        return yang.gdata.List(['interface-name'], elements)
-
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.List) -> list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]:
         if n is not None:
             return [Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry.from_gdata(e) for e in n.elements]
         return []
 
+    def copy(self):
+        """Create a deep copy of this list object"""
+        # Copy each element in the list
+        copied_elements = []
+        for e in self:
+            ce = e.copy()
+            if ce is not None:
+                copied_elements.append(ce)
+        return Cisco_IOS_XR_um_interface_cfg__interfaces__interface(elements=copied_elements)
 
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface_element(node: xml.Node) -> yang.gdata.Node:
-    children = {}
-    child_interface_name = yang.gdata.from_xml_str(node, 'interface-name')
-    yang.gdata.maybe_add(children, 'interface-name', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__interface_name, child_interface_name)
-    child_sub_interface_type = yang.gdata.from_xml_opt_cnt(node, 'sub-interface-type')
-    yang.gdata.maybe_add(children, 'sub-interface-type', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__sub_interface_type, child_sub_interface_type)
-    child_ipv4 = yang.gdata.from_xml_opt_cnt(node, 'ipv4')
-    yang.gdata.maybe_add(children, 'ipv4', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4, child_ipv4)
-    child_ipv6 = yang.gdata.from_xml_opt_cnt(node, 'ipv6')
-    yang.gdata.maybe_add(children, 'ipv6', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv6, child_ipv6)
-    child_encapsulation = yang.gdata.from_xml_opt_cnt(node, 'encapsulation')
-    yang.gdata.maybe_add(children, 'encapsulation', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__encapsulation, child_encapsulation)
-    child_shutdown = yang.gdata.from_xml_opt_empty(node, 'shutdown')
-    yang.gdata.maybe_add(children, 'shutdown', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__shutdown, child_shutdown)
-    child_mtu = yang.gdata.from_xml_opt_int(node, 'mtu')
-    yang.gdata.maybe_add(children, 'mtu', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__mtu, child_mtu)
-    child_description = yang.gdata.from_xml_opt_str(node, 'description')
-    yang.gdata.maybe_add(children, 'description', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface__description, child_description)
-    return yang.gdata.Container(children)
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface(nodes: list[xml.Node]) -> yang.gdata.List:
-    elements = [from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface_element(e) for e in nodes]
-    return yang.gdata.List(keys=['interface-name'], elements=elements)
+extension Cisco_IOS_XR_um_interface_cfg__interfaces__interface(Iterable[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
+    def __iter__(self) -> Iterator[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]:
+        return self.elements.__iter__()
 
 class Cisco_IOS_XR_um_interface_cfg__interfaces(yang.adata.MNode):
     interface: Cisco_IOS_XR_um_interface_cfg__interfaces__interface
@@ -3471,53 +3067,26 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces(yang.adata.MNode):
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg'
         self.interface = Cisco_IOS_XR_um_interface_cfg__interfaces__interface(elements=interface)
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'interface':
+            return iter(self.interface)
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_interface_cfg__interfaces')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _interface = self.interface
-        if _interface is not None:
-            children['interface'] = _interface.to_gdata()
-        return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', module='Cisco-IOS-XR-um-interface-cfg')
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_interface_cfg__interfaces:
         if n is not None:
-            return Cisco_IOS_XR_um_interface_cfg__interfaces(interface=Cisco_IOS_XR_um_interface_cfg__interfaces__interface.from_gdata(n.get_opt_list('interface')))
+            return Cisco_IOS_XR_um_interface_cfg__interfaces(interface=Cisco_IOS_XR_um_interface_cfg__interfaces__interface.from_gdata(n.get_opt_list(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'interface'))))
         return Cisco_IOS_XR_um_interface_cfg__interfaces()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /interfaces')
-            res.append('{self_name} = Cisco_IOS_XR_um_interface_cfg__interfaces()')
-        leaves = []
-        _interface = self.interface
-        for _element in _interface.elements:
-            res.append('')
-            res.append("# List /interfaces/interface element: {_element.to_gdata().key_str(['interface-name'])}")
-            list_elem = 'interface_element = {self_name}.interface.create({repr(_element.interface_name)})'
-            res.append(list_elem)
-            res.extend(_element.prsrc('interface_element', False, list_element=True).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /interfaces'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_interface_cfg__interfaces.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-interface-cfg:interfaces'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_interface = yang.gdata.from_xml_opt_list(node, 'interface')
-    yang.gdata.maybe_add(children, 'interface', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces__interface, child_interface)
-    return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg', module='Cisco-IOS-XR-um-interface-cfg')
-
-mut def from_xml_Cisco_IOS_XR_um_hostname_cfg__hostname__system_network_name(val: value) -> yang.gdata.Leaf:
-    return yang.gdata.Leaf('string', val)
 
 class Cisco_IOS_XR_um_hostname_cfg__hostname(yang.adata.MNode):
     system_network_name: ?str
@@ -3526,46 +3095,26 @@ class Cisco_IOS_XR_um_hostname_cfg__hostname(yang.adata.MNode):
         self._ns = 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg'
         self.system_network_name = system_network_name
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'system_network_name':
+            return self.system_network_name
+        raise ValueError('Attribute {name} not found in Cisco_IOS_XR_um_hostname_cfg__hostname')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _system_network_name = self.system_network_name
-        if _system_network_name is not None:
-            children['system-network-name'] = yang.gdata.Leaf('string', _system_network_name)
-        return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg', module='Cisco-IOS-XR-um-hostname-cfg')
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True, root_path=['Cisco-IOS-XR-um-hostname-cfg:hostname'])
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> Cisco_IOS_XR_um_hostname_cfg__hostname:
         if n is not None:
-            return Cisco_IOS_XR_um_hostname_cfg__hostname(system_network_name=n.get_opt_str('system-network-name'))
+            return Cisco_IOS_XR_um_hostname_cfg__hostname(system_network_name=n.get_opt_str(yang.gdata.Id(NS_Cisco_IOS_XR_um_hostname_cfg, 'system-network-name')))
         return Cisco_IOS_XR_um_hostname_cfg__hostname()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /hostname')
-            res.append('{self_name} = Cisco_IOS_XR_um_hostname_cfg__hostname()')
-        leaves = []
-        _system_network_name = self.system_network_name
-        if _system_network_name is not None:
-            leaves.append('{self_name}.system_network_name = {repr(_system_network_name)}')
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /hostname'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return Cisco_IOS_XR_um_hostname_cfg__hostname.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True, root_path=['Cisco-IOS-XR-um-hostname-cfg:hostname'])
-
-
-mut def from_xml_Cisco_IOS_XR_um_hostname_cfg__hostname(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_system_network_name = yang.gdata.from_xml_opt_str(node, 'system-network-name')
-    yang.gdata.maybe_add(children, 'system-network-name', from_xml_Cisco_IOS_XR_um_hostname_cfg__hostname__system_network_name, child_system_network_name)
-    return yang.gdata.Container(children, ns='http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg', module='Cisco-IOS-XR-um-hostname-cfg')
 
 class root(yang.adata.MNode):
     interfaces: Cisco_IOS_XR_um_interface_cfg__interfaces
@@ -3576,67 +3125,31 @@ class root(yang.adata.MNode):
         self.interfaces = interfaces if interfaces is not None else Cisco_IOS_XR_um_interface_cfg__interfaces()
         self.hostname = hostname if hostname is not None else Cisco_IOS_XR_um_hostname_cfg__hostname()
 
+    def _get_attr(self, name: str) -> ?value:
+        if name == 'interfaces':
+            return self.interfaces
+        if name == 'hostname':
+            return self.hostname
+        raise ValueError('Attribute {name} not found in root')
+
     mut def to_gdata(self) -> yang.gdata.Node:
-        children = {}
-        _interfaces = self.interfaces
-        if _interfaces is not None:
-            children['interfaces'] = _interfaces.to_gdata()
-        _hostname = self.hostname
-        if _hostname is not None:
-            children['hostname'] = _hostname.to_gdata()
-        return yang.gdata.Container(children)
+        if isinstance(self, yang.adata.MNode):
+            return yang.gen3.from_data(SRC_DNODE, self, loose=True)
+        raise ValueError('unreachable')
 
     @staticmethod
     mut def from_gdata(n: ?yang.gdata.Node) -> root:
         if n is not None:
-            return root(interfaces=Cisco_IOS_XR_um_interface_cfg__interfaces.from_gdata(n.get_opt_cnt('interfaces')), hostname=Cisco_IOS_XR_um_hostname_cfg__hostname.from_gdata(n.get_opt_cnt('hostname')))
+            return root(interfaces=Cisco_IOS_XR_um_interface_cfg__interfaces.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_interface_cfg, 'interfaces'))), hostname=Cisco_IOS_XR_um_hostname_cfg__hostname.from_gdata(n.get_opt_cnt(yang.gdata.Id(NS_Cisco_IOS_XR_um_hostname_cfg, 'hostname'))))
         return root()
 
-    def prsrc(self, self_name='ad', top=True, list_element=False):
-        res = []
-        if top:
-            res.append('# Top node: /root')
-            res.append('{self_name} = root()')
-        leaves = []
-        _interfaces = self.interfaces
-        if _interfaces is not None:
-            res.extend(_interfaces.prsrc('{self_name}.interfaces', False).splitlines())
-        _hostname = self.hostname
-        if _hostname is not None:
-            res.extend(_hostname.prsrc('{self_name}.hostname', False).splitlines())
-        if leaves:
-            if not list_element:
-               res = ['', '# Container: /root'] + leaves + res
-            else:
-                res = leaves + res
-        return '\n'.join(res)
+    def copy(self):
+        """Create a deep copy of this adata object"""
+        return root.from_gdata(self.to_gdata())
 
-    def prsrc_gen3(self, self_name='ad'):
-        # WARNING: this wrapper for the gen3.pradata schema-driven parser compiles the schema on every call!
-        s = yang.compile(src_yang())
-        return yang.gen3.pradata(s, self.to_gdata(), self_name, loose=True)
-
-
-mut def from_xml(node: xml.Node) -> yang.gdata.Container:
-    children = {}
-    child_interfaces = yang.gdata.from_xml_opt_cnt(node, 'interfaces', 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg')
-    yang.gdata.maybe_add(children, 'interfaces', from_xml_Cisco_IOS_XR_um_interface_cfg__interfaces, child_interfaces)
-    child_hostname = yang.gdata.from_xml_opt_cnt(node, 'hostname', 'http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg')
-    yang.gdata.maybe_add(children, 'hostname', from_xml_Cisco_IOS_XR_um_hostname_cfg__hostname, child_hostname)
-    return yang.gdata.Container(children)
-
-def from_xml_gen3(node: xml.Node, root_path: list[str]=[]) -> yang.gdata.Container:
-    # WARNING: this wrapper for the gen3.from_xml schema-driven parser compiles the schema on every call!
-    s = yang.compile(src_yang())
-    return yang.gen3.from_xml(s, node, loose=True, root_path=root_path)
 
 schema_namespaces: set[str] = {
     'http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg',
     'http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg',
     'http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg',
 }
-
-def prsrc_gen3(data, self_name='ad'):
-    # WARNING: this wrapper for the gen3.prsrc schema-driven parser compiles the schema on every call!
-    s = yang.compile(src_yang())
-    return yang.gen3.pradata(s, data, self_name, loose=True)
