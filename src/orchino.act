@@ -13,7 +13,9 @@ import orchestron.device_meta_config    # TODO: remove https://github.com/actonl
 import yang
 import yang.adata
 import yang.gdata
-import yang.gen3
+import yang.data
+import yang.json
+import yang.xml
 
 import orchino.layers
 import orchino.layers.y_0_loose as cfs_layer
@@ -163,28 +165,14 @@ actor main(env):
                 return
 
             if len(path_elements) > 3 and path_elements[1] == "device":
-                def respond_with_data(data: ?yang.gdata.Node, schema: odev.DeviceSchema, accept_header: ?str):
-                    aheader = accept_header if accept_header is not None else "application/yang-data+json"
-                    if data is not None:
-                        if aheader == "application/yang-data+json":
-                            out_data = data.to_jsonstr()
-                        elif aheader == "application/yang-data+xml":
-                            out_data = data.to_xmlstr()
-                        elif aheader == "application/yang-data+acton-adata":
-                            out_data = yang.gen3.pradata(schema.src_dnode, data, loose=True)
-                        else:
-                            respond(404, {}, "Unsupported media type")
-                            return
-                        respond(200, {"Content-type": aheader}, out_data)
-                    else:
-                        respond(500, {}, "No data")
-
                 try:
                     dev_name = path_elements[2]
                     dev = dev_registry.get(dev_name)
-                    # TODO: avoid "actonc: #### findAttr' fails for __builtin__.str . val"
-                    # This compiler error occurs when we get the schema closer to where it is needed
-                    schema = dev.get_schema()
+                    dmc = dev.get_dmc()
+                    if dmc.feature_flags.runtime_schema_fetch:
+                        schema = dev.get_fetched_schema()
+                    else:
+                        schema = dev.get_bundled_schema().src_dnode
                     if path_elements[3] == "capabilities":
                         respond(200, {}, str(dev.get_capabilities()))
                         return
@@ -220,7 +208,10 @@ actor main(env):
                                 elif format_type == "gdata":
                                     diff_str = config_diff.prsrc()
                                 elif format_type == "adata":
-                                    diff_str = yang.gen3.pradata(schema.src_dnode, config_diff, loose=True)
+                                    if schema is not None:
+                                        diff_str = yang.data.pradata(schema, config_diff, loose=True)
+                                    else:
+                                        diff_str = "# Adata format not available for diff (schemas not compiled)"
                                 else:
                                     diff_str = config_diff.to_jsonstr()  # default to json
                                 respond(200, {"Content-Type": "text/plain"}, diff_str)
@@ -249,7 +240,11 @@ actor main(env):
                             elif format_type == "gdata":
                                 conf_str = target_conf.prsrc()
                             elif format_type == "adata":
-                                conf_str = yang.gen3.pradata(schema.src_dnode, target_conf, loose=True)
+                                if schema is not None:
+                                    conf_str = yang.data.pradata(schema, target_conf, loose=True)
+                                else:
+                                    respond(500, {}, "Schemas not compiled")
+                                    return
                             else:
                                 conf_str = target_conf.to_jsonstr()  # default to json
                             respond(200, {"Content-Type": "text/plain"}, conf_str)
@@ -276,7 +271,11 @@ actor main(env):
                             elif format_type == "gdata":
                                 conf_str = running_conf.prsrc()
                             elif format_type == "adata":
-                                conf_str = yang.gen3.pradata(schema.src_dnode, running_conf, loose=True)
+                                if schema is not None:
+                                    conf_str = yang.data.pradata(schema, running_conf, loose=True)
+                                else:
+                                    respond(500, {}, "Schemas not compiled")
+                                    return
                             else:
                                 conf_str = running_conf.to_jsonstr()  # default to json
                             respond(200, {"Content-Type": "text/plain"}, conf_str)
@@ -456,7 +455,7 @@ actor main(env):
                         content = layer_config.to_xmlstr()
                     if request.headers.get("accept") == "application/yang-data+acton-adata":
                         src_dnode = schema_for_layer(layer_idx)
-                        content = yang.gen3.pradata(src_dnode, layer_config, loose=True)
+                        content = yang.data.pradata(src_dnode, layer_config, loose=True)
                     respond(200, {}, content)
                     return
             else:
@@ -465,7 +464,7 @@ actor main(env):
         elif request.method == "DELETE":
             p = split_restconf_path(request.path)
             if p[0] == "restconf":
-                input_config = yang.gen3.from_json_path(top_schema, {}, p[1:], "remove", loose=True)
+                input_config = yang.json.from_json_path(top_schema, {}, p[1:], "remove", loose=True)
                 session = cfs.newsession()
                 session.edit_config(input_config, config_done)
                 return
@@ -480,11 +479,11 @@ actor main(env):
                 if request.headers.get("content-type") == "application/yang-data+json":
                     json_in = json.decode(request.body.decode())
                     p = split_restconf_path(request.path)[1:]
-                    input_config = yang.gen3.from_json_path(top_schema, json_in, p, loose=True)
+                    input_config = yang.json.from_json_path(top_schema, json_in, p, loose=True)
                 elif request.headers.get("content-type") == "application/yang-data+xml":
                     try:
                         xml_in = xml.decode(request.body.decode())
-                        input_config = yang.gen3.from_data(top_schema, xml_in, loose=True)
+                        input_config = yang.xml.from_xml(top_schema, xml_in, loose=True)
                     except Exception as e:
                         respond(400, {}, "Error parsing XML: {e}")
                         return
@@ -565,7 +564,7 @@ actor main(env):
             config = configs.pop(0)
             # Grab the first config
             log.info("Applying config file...", {"config_file": config.filename})
-            input_config = yang.gen3.from_data(top_schema, config.config, loose=True)
+            input_config = yang.xml.from_xml(top_schema, config.config, loose=True)
             session.edit_config(input_config, None, lambda result: _conf_file_done(config, result))
         except IndexError:
             log.info("All config files applied")
