@@ -4,18 +4,18 @@ fingerprint = 0xe70d5786c192d814
 dependencies = {
     "netconf": (
         repo_url="https://github.com/orchestron-orchestrator/netconf.git",
-        url="https://github.com/orchestron-orchestrator/netconf/archive/15999924215ca50387340becb2e559d11d148bad.zip",
-        hash="N-V-__8AAOL3AQD7Oy0qj2nAbYZ0u3dGWSGfvqABuALB3K0y"
+        url="https://github.com/orchestron-orchestrator/netconf/archive/1de911729de432fd6da63cd41b6ab82a0835405c.zip",
+        hash="N-V-__8AAGL4AQBbvv2Grh2i6fAUkck-FKilllk35b_vuBhP"
     ),
     "orchestron": (
         repo_url="https://github.com/orchestron-orchestrator/orchestron",
-        url="https://github.com/orchestron-orchestrator/orchestron/archive/46bf8128a7563503ccf92b8302c4bf6a7e26a5d3.zip",
-        hash="N-V-__8AAFBUEQBjXaW-92KIz_iNxo4_QeS9zuIj8QyUujZO"
+        url="https://github.com/orchestron-orchestrator/orchestron/archive/7071c04c12adc089954bccebe6b78d82fe452bd6.zip",
+        hash="N-V-__8AAA1UEQCdlOWdDjaa1ncshoiKgLVE62Vd1iOUeDK5"
     ),
     "yang": (
         repo_url="https://github.com/orchestron-orchestrator/acton-yang.git",
-        url="https://github.com/orchestron-orchestrator/acton-yang/archive/e3844d750ec323652cd794e66c9916143a5be4ad.zip",
-        hash="N-V-__8AAOn0IABSfxUW5PZr9-OBvzlAK93DIaQ-DFEeGa0n"
+        url="https://github.com/orchestron-orchestrator/acton-yang/archive/2d2a44f6b606404f5bd04f5177acf58d8f17d56a.zip",
+        hash="N-V-__8AACP2IACZD26Ll_1JNHu5R8G_dViBbIHZx_4grysm"
     )
 }
 zig_dependencies = {}
