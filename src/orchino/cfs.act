@@ -3,9 +3,10 @@ import orchestron.ttt
 import logging
 
 import orchino.layers.base_0 as base
-# TODO: this import is required by the compiler, maybe related to
+
+# TODO: these imports are required by the compiler, maybe related to
 # https://github.com/actonlang/acton/issues/2390
-import yang.identityref
+import orchino.layers.y_0, yang.identityref
 
 class Router(base.Router):
     def transform(self, i):
