@@ -622,14 +622,6 @@ class netinfra__netinfra__router_entry(yadata.MNode):
         self.id = id
         self.type = type
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'netinfra:name':
-            return self.name
-        if name == 'netinfra:id':
-            return self.id
-        if name == 'netinfra:type':
-            return self.type
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['netinfra:netinfra', 'router'])
 
@@ -642,8 +634,7 @@ class netinfra__netinfra__router_entry(yadata.MNode):
         return netinfra__netinfra__router_entry.from_gdata(self.to_gdata())
 
 _breaker2: None = None
-class netinfra__netinfra__router(yadata.MNode):
-    elements: list[netinfra__netinfra__router_entry]
+class netinfra__netinfra__router(yadata.MList[netinfra__netinfra__router_entry]):
     mut def __init__(self, elements: list[netinfra__netinfra__router_entry]=[]) -> None:
         self.elements = elements
 
@@ -681,9 +672,6 @@ class netinfra__netinfra__router(yadata.MNode):
                 copied_elements.append(ce)
         return netinfra__netinfra__router(elements=copied_elements)
 
-extension netinfra__netinfra__router(Iterable[netinfra__netinfra__router_entry]):
-    def __iter__(self) -> Iterator[netinfra__netinfra__router_entry]:
-        return self.elements.__iter__()
 
 extension netinfra__netinfra__router(Indexed[str, netinfra__netinfra__router_entry]):
     def __getitem__(self, k: str) -> netinfra__netinfra__router_entry:
@@ -713,10 +701,6 @@ class netinfra__netinfra(yadata.MNode):
     mut def __init__(self, router: list[netinfra__netinfra__router_entry]=[]) -> None:
         self.router = netinfra__netinfra__router(elements=router)
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'netinfra:router':
-            return iter(self.router)
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['netinfra:netinfra'])
 
@@ -737,10 +721,6 @@ class root(yadata.MNode):
 
     mut def __init__(self, netinfra: ?netinfra__netinfra=None) -> None:
         self.netinfra = netinfra if netinfra is not None else netinfra__netinfra()
-
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'netinfra:netinfra':
-            return self.netinfra
 
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True)

@@ -63,7 +63,6 @@ SRC_DNODE_CHILD_7: DLeaf = DLeaf(module='stratoweave-rfs', namespace='http://str
 
 SRC_DNODE_CHILD_8: DContainer = DContainer(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='mock', config=True, presence=False, children=[
     DLeaf(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='enabled', config=True, default='false', mandatory=False, type_=DTypeBoolean(name='boolean', description=None, reference=None, exts=[], builtin_type='boolean', default=None)),
-    DLeafList(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='preset', config=True, min_elements=0, ordered_by='system', type_=DTypeEnum(name='enumeration', description=None, reference=None, exts=[], builtin_type='enumeration', default=None, name_to_val={'cisco-ios-xr':0, 'juniper-junos':1})),
     DList(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='module', key=['name'], config=True, min_elements=0, ordered_by='system', children=[
         DLeaf(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='name', config=True, mandatory=False, type_=DTypeString(name='string', description=None, reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[])),
         DLeaf(module='stratoweave-rfs', namespace='http://stratoweave.org/yang/stratoweave-rfs', prefix='sw-rfs', name='namespace', config=True, mandatory=True, type_=DTypeString(name='string', description=None, reference=None, exts=[], builtin_type='string', default=None, length=None, patterns=[])),
@@ -301,12 +300,6 @@ SRC_YANG_2: str = r"""module stratoweave-rfs {
       leaf enabled {
         type boolean;
         default "false";
-      }
-      leaf-list preset {
-        type enumeration {
-          enum cisco-ios-xr;
-          enum juniper-junos;
-        }
       }
       list module {
         key "name";
@@ -844,14 +837,6 @@ class stratoweave_rfs__device__address__initial_credentials_entry(yadata.MNode):
         self.password = password
         self.key = key
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:username':
-            return self.username
-        if name == 'sw-rfs:password':
-            return self.password
-        if name == 'sw-rfs:key':
-            return self.key
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'address', 'initial-credentials'])
 
@@ -864,8 +849,7 @@ class stratoweave_rfs__device__address__initial_credentials_entry(yadata.MNode):
         return stratoweave_rfs__device__address__initial_credentials_entry.from_gdata(self.to_gdata())
 
 _breaker2: None = None
-class stratoweave_rfs__device__address__initial_credentials(yadata.MNode):
-    elements: list[stratoweave_rfs__device__address__initial_credentials_entry]
+class stratoweave_rfs__device__address__initial_credentials(yadata.MList[stratoweave_rfs__device__address__initial_credentials_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device__address__initial_credentials_entry]=[]) -> None:
         self.elements = elements
 
@@ -903,9 +887,6 @@ class stratoweave_rfs__device__address__initial_credentials(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device__address__initial_credentials(elements=copied_elements)
 
-extension stratoweave_rfs__device__address__initial_credentials(Iterable[stratoweave_rfs__device__address__initial_credentials_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device__address__initial_credentials_entry]:
-        return self.elements.__iter__()
 
 _breaker3: None = None
 class stratoweave_rfs__device__address_entry(yadata.MNode):
@@ -920,16 +901,6 @@ class stratoweave_rfs__device__address_entry(yadata.MNode):
         self.port = port
         self.initial_credentials = stratoweave_rfs__device__address__initial_credentials(elements=initial_credentials)
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:name':
-            return self.name
-        if name == 'sw-rfs:address':
-            return self.address
-        if name == 'sw-rfs:port':
-            return self.port
-        if name == 'sw-rfs:initial-credentials':
-            return iter(self.initial_credentials)
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'address'])
 
@@ -942,8 +913,7 @@ class stratoweave_rfs__device__address_entry(yadata.MNode):
         return stratoweave_rfs__device__address_entry.from_gdata(self.to_gdata())
 
 _breaker4: None = None
-class stratoweave_rfs__device__address(yadata.MNode):
-    elements: list[stratoweave_rfs__device__address_entry]
+class stratoweave_rfs__device__address(yadata.MList[stratoweave_rfs__device__address_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device__address_entry]=[]) -> None:
         self.elements = elements
 
@@ -981,9 +951,6 @@ class stratoweave_rfs__device__address(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device__address(elements=copied_elements)
 
-extension stratoweave_rfs__device__address(Iterable[stratoweave_rfs__device__address_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device__address_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__device__address(Indexed[str, stratoweave_rfs__device__address_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__device__address_entry:
@@ -1015,12 +982,6 @@ class stratoweave_rfs__device__credentials__key_entry(yadata.MNode):
         self.key = key
         self.private_key = private_key
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:key':
-            return self.key
-        if name == 'sw-rfs:private-key':
-            return self.private_key
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'credentials', 'key'])
 
@@ -1033,8 +994,7 @@ class stratoweave_rfs__device__credentials__key_entry(yadata.MNode):
         return stratoweave_rfs__device__credentials__key_entry.from_gdata(self.to_gdata())
 
 _breaker6: None = None
-class stratoweave_rfs__device__credentials__key(yadata.MNode):
-    elements: list[stratoweave_rfs__device__credentials__key_entry]
+class stratoweave_rfs__device__credentials__key(yadata.MList[stratoweave_rfs__device__credentials__key_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device__credentials__key_entry]=[]) -> None:
         self.elements = elements
 
@@ -1070,9 +1030,6 @@ class stratoweave_rfs__device__credentials__key(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device__credentials__key(elements=copied_elements)
 
-extension stratoweave_rfs__device__credentials__key(Iterable[stratoweave_rfs__device__credentials__key_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device__credentials__key_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__device__credentials__key(Indexed[str, stratoweave_rfs__device__credentials__key_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__device__credentials__key_entry:
@@ -1106,14 +1063,6 @@ class stratoweave_rfs__device__credentials(yadata.MNode):
         self.password = password
         self.key = stratoweave_rfs__device__credentials__key(elements=key)
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:username':
-            return self.username
-        if name == 'sw-rfs:password':
-            return self.password
-        if name == 'sw-rfs:key':
-            return iter(self.key)
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'credentials'])
 
@@ -1139,14 +1088,6 @@ class stratoweave_rfs__device__initial_credentials_entry(yadata.MNode):
         self.password = password
         self.key = key
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:username':
-            return self.username
-        if name == 'sw-rfs:password':
-            return self.password
-        if name == 'sw-rfs:key':
-            return self.key
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'initial-credentials'])
 
@@ -1159,8 +1100,7 @@ class stratoweave_rfs__device__initial_credentials_entry(yadata.MNode):
         return stratoweave_rfs__device__initial_credentials_entry.from_gdata(self.to_gdata())
 
 _breaker9: None = None
-class stratoweave_rfs__device__initial_credentials(yadata.MNode):
-    elements: list[stratoweave_rfs__device__initial_credentials_entry]
+class stratoweave_rfs__device__initial_credentials(yadata.MList[stratoweave_rfs__device__initial_credentials_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device__initial_credentials_entry]=[]) -> None:
         self.elements = elements
 
@@ -1198,9 +1138,6 @@ class stratoweave_rfs__device__initial_credentials(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device__initial_credentials(elements=copied_elements)
 
-extension stratoweave_rfs__device__initial_credentials(Iterable[stratoweave_rfs__device__initial_credentials_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device__initial_credentials_entry]:
-        return self.elements.__iter__()
 
 _breaker10: None = None
 class stratoweave_rfs__device__mock__module_entry(yadata.MNode):
@@ -1215,16 +1152,6 @@ class stratoweave_rfs__device__mock__module_entry(yadata.MNode):
         self.revision = revision
         self.feature = feature if feature is not None else []
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:name':
-            return self.name
-        if name == 'sw-rfs:namespace':
-            return self.namespace
-        if name == 'sw-rfs:revision':
-            return self.revision
-        if name == 'sw-rfs:feature':
-            return self.feature
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'mock', 'module'])
 
@@ -1237,8 +1164,7 @@ class stratoweave_rfs__device__mock__module_entry(yadata.MNode):
         return stratoweave_rfs__device__mock__module_entry.from_gdata(self.to_gdata())
 
 _breaker11: None = None
-class stratoweave_rfs__device__mock__module(yadata.MNode):
-    elements: list[stratoweave_rfs__device__mock__module_entry]
+class stratoweave_rfs__device__mock__module(yadata.MList[stratoweave_rfs__device__mock__module_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device__mock__module_entry]=[]) -> None:
         self.elements = elements
 
@@ -1276,9 +1202,6 @@ class stratoweave_rfs__device__mock__module(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device__mock__module(elements=copied_elements)
 
-extension stratoweave_rfs__device__mock__module(Iterable[stratoweave_rfs__device__mock__module_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device__mock__module_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__device__mock__module(Indexed[str, stratoweave_rfs__device__mock__module_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__device__mock__module_entry:
@@ -1304,21 +1227,11 @@ extension stratoweave_rfs__device__mock__module(Indexed[str, stratoweave_rfs__de
 _breaker12: None = None
 class stratoweave_rfs__device__mock(yadata.MNode):
     enabled: ?bool
-    preset: list[str]
     module: stratoweave_rfs__device__mock__module
 
-    mut def __init__(self, enabled: ?bool, preset: ?list[str]=None, module: list[stratoweave_rfs__device__mock__module_entry]=[]) -> None:
+    mut def __init__(self, enabled: ?bool, module: list[stratoweave_rfs__device__mock__module_entry]=[]) -> None:
         self.enabled = enabled
-        self.preset = preset if preset is not None else []
         self.module = stratoweave_rfs__device__mock__module(elements=module)
-
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:enabled':
-            return self.enabled
-        if name == 'sw-rfs:preset':
-            return self.preset
-        if name == 'sw-rfs:module':
-            return iter(self.module)
 
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'mock'])
@@ -1326,7 +1239,7 @@ class stratoweave_rfs__device__mock(yadata.MNode):
     @staticmethod
     mut def from_gdata(n: ?ygdata.Node) -> stratoweave_rfs__device__mock:
         if n is not None:
-            return stratoweave_rfs__device__mock(enabled=n.get_opt_bool(ygdata.Id(NS_stratoweave_rfs, 'enabled')), preset=n.get_opt_strs(ygdata.Id(NS_stratoweave_rfs, 'preset')), module=stratoweave_rfs__device__mock__module.from_gdata(n.get_opt_list(ygdata.Id(NS_stratoweave_rfs, 'module'))))
+            return stratoweave_rfs__device__mock(enabled=n.get_opt_bool(ygdata.Id(NS_stratoweave_rfs, 'enabled')), module=stratoweave_rfs__device__mock__module.from_gdata(n.get_opt_list(ygdata.Id(NS_stratoweave_rfs, 'module'))))
         return stratoweave_rfs__device__mock()
 
     mut def copy(self) -> stratoweave_rfs__device__mock:
@@ -1340,10 +1253,6 @@ class stratoweave_rfs__device__debug(yadata.MNode):
 
     mut def __init__(self, connection: ?bool) -> None:
         self.connection = connection
-
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:connection':
-            return self.connection
 
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'debug'])
@@ -1365,10 +1274,6 @@ class stratoweave_rfs__device__feature_flags(yadata.MNode):
 
     mut def __init__(self, runtime_schema_fetch: ?bool) -> None:
         self.runtime_schema_fetch = runtime_schema_fetch
-
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:runtime-schema-fetch':
-            return self.runtime_schema_fetch
 
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device', 'feature-flags'])
@@ -1431,30 +1336,6 @@ class stratoweave_rfs__device_entry(yadata.MNode):
         self.feature_flags = feature_flags if feature_flags is not None else stratoweave_rfs__device__feature_flags()
         self.state = state if state is not None else stratoweave_rfs__device__state()
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:name':
-            return self.name
-        if name == 'sw-rfs:description':
-            return self.description
-        if name == 'sw-rfs:type':
-            return self.type
-        if name == 'sw-rfs:address':
-            return iter(self.address)
-        if name == 'sw-rfs:credentials':
-            return self.credentials
-        if name == 'sw-rfs:initial-credentials':
-            return iter(self.initial_credentials)
-        if name == 'sw-rfs:approval-required':
-            return self.approval_required
-        if name == 'sw-rfs:mock':
-            return self.mock
-        if name == 'sw-rfs:debug':
-            return self.debug
-        if name == 'sw-rfs:feature-flags':
-            return self.feature_flags
-        if name == 'sw-rfs:state':
-            return self.state
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:device'])
 
@@ -1467,8 +1348,7 @@ class stratoweave_rfs__device_entry(yadata.MNode):
         return stratoweave_rfs__device_entry.from_gdata(self.to_gdata())
 
 _breaker17: None = None
-class stratoweave_rfs__device(yadata.MNode):
-    elements: list[stratoweave_rfs__device_entry]
+class stratoweave_rfs__device(yadata.MList[stratoweave_rfs__device_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__device_entry]=[]) -> None:
         self.elements = elements
 
@@ -1508,9 +1388,6 @@ class stratoweave_rfs__device(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__device(elements=copied_elements)
 
-extension stratoweave_rfs__device(Iterable[stratoweave_rfs__device_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__device_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__device(Indexed[str, stratoweave_rfs__device_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__device_entry:
@@ -1542,12 +1419,6 @@ class stratoweave_rfs__rfs__base_config_entry(yadata.MNode):
         self.name = name
         self.ipv4_address = ipv4_address
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'orchino-rfs:name':
-            return self.name
-        if name == 'orchino-rfs:ipv4-address':
-            return self.ipv4_address
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:rfs', 'orchino-rfs:base-config'])
 
@@ -1560,8 +1431,7 @@ class stratoweave_rfs__rfs__base_config_entry(yadata.MNode):
         return stratoweave_rfs__rfs__base_config_entry.from_gdata(self.to_gdata())
 
 _breaker19: None = None
-class stratoweave_rfs__rfs__base_config(yadata.MNode):
-    elements: list[stratoweave_rfs__rfs__base_config_entry]
+class stratoweave_rfs__rfs__base_config(yadata.MList[stratoweave_rfs__rfs__base_config_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__rfs__base_config_entry]=[]) -> None:
         self.elements = elements
 
@@ -1597,9 +1467,6 @@ class stratoweave_rfs__rfs__base_config(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__rfs__base_config(elements=copied_elements)
 
-extension stratoweave_rfs__rfs__base_config(Iterable[stratoweave_rfs__rfs__base_config_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__rfs__base_config_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__rfs__base_config(Indexed[str, stratoweave_rfs__rfs__base_config_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__rfs__base_config_entry:
@@ -1631,12 +1498,6 @@ class stratoweave_rfs__rfs_entry(yadata.MNode):
         self.name = name
         self.base_config = stratoweave_rfs__rfs__base_config(elements=base_config)
 
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:name':
-            return self.name
-        if name == 'orchino-rfs:base-config':
-            return iter(self.base_config)
-
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True, root_path=['stratoweave-rfs:rfs'])
 
@@ -1649,8 +1510,7 @@ class stratoweave_rfs__rfs_entry(yadata.MNode):
         return stratoweave_rfs__rfs_entry.from_gdata(self.to_gdata())
 
 _breaker21: None = None
-class stratoweave_rfs__rfs(yadata.MNode):
-    elements: list[stratoweave_rfs__rfs_entry]
+class stratoweave_rfs__rfs(yadata.MList[stratoweave_rfs__rfs_entry]):
     mut def __init__(self, elements: list[stratoweave_rfs__rfs_entry]=[]) -> None:
         self.elements = elements
 
@@ -1684,9 +1544,6 @@ class stratoweave_rfs__rfs(yadata.MNode):
                 copied_elements.append(ce)
         return stratoweave_rfs__rfs(elements=copied_elements)
 
-extension stratoweave_rfs__rfs(Iterable[stratoweave_rfs__rfs_entry]):
-    def __iter__(self) -> Iterator[stratoweave_rfs__rfs_entry]:
-        return self.elements.__iter__()
 
 extension stratoweave_rfs__rfs(Indexed[str, stratoweave_rfs__rfs_entry]):
     def __getitem__(self, k: str) -> stratoweave_rfs__rfs_entry:
@@ -1717,12 +1574,6 @@ class root(yadata.MNode):
     mut def __init__(self, device: list[stratoweave_rfs__device_entry]=[], rfs: list[stratoweave_rfs__rfs_entry]=[]) -> None:
         self.device = stratoweave_rfs__device(elements=device)
         self.rfs = stratoweave_rfs__rfs(elements=rfs)
-
-    pure def _get_attr(self, name: str) -> ?value:
-        if name == 'sw-rfs:device':
-            return iter(self.device)
-        if name == 'sw-rfs:rfs':
-            return iter(self.rfs)
 
     mut def to_gdata(self) -> ygdata.Node:
         return yadata.from_adata(SRC_DNODE, self, loose=True)
@@ -1960,17 +1811,15 @@ class stratoweave_rfs__device__mock__module_subs(SubscriptionNode):
 _breaker34: None = None
 class stratoweave_rfs__device__mock_subs(SubscriptionNode):
     enabled: SubscriptionNode
-    preset: SubscriptionNode
     module: stratoweave_rfs__device__mock__module_subs
 
     pure def __init__(self, path: ?SubscriptionPath=None) -> None:
         SubscriptionNode.__init__(self, path)
         self.enabled = SubscriptionNode(SubscriptionPath(ygdata.Id(NS_stratoweave_rfs, 'enabled'), parent=path))
-        self.preset = SubscriptionNode(SubscriptionPath(ygdata.Id(NS_stratoweave_rfs, 'preset'), parent=path))
         self.module = stratoweave_rfs__device__mock__module_subs(SubscriptionPath(ygdata.Id(NS_stratoweave_rfs, 'module'), parent=path))
 
     pure def _direct_children(self) -> list[SubscriptionNode]:
-        direct: list[SubscriptionNode] = [self.enabled, self.preset, self.module]
+        direct: list[SubscriptionNode] = [self.enabled, self.module]
         return direct
 
 _breaker35: None = None
