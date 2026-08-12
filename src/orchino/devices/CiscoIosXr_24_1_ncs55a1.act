@@ -204,18 +204,12 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry.from_gdata(self.to_gdata())
 
 _breaker7: None = None
-class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(yadata.MList[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
+class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]=[]) -> None:
-        self.elements = elements
+        yadata.MKeyedList.__init__(self, lambda e: e.address, elements)
 
-    pure def get(self, address: str) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
-        for e in self:
-            if e.address != address:
-                continue
-            return e
-
-    mut def create(self, address: str, netmask: ?str=None, route_tag: ?u64=None, algorithm: ?u64=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
-        e = self.get(address)
+    mut def create(self, key: str, netmask: ?str=None, route_tag: ?u64=None, algorithm: ?u64=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
+        e = self.get(key)
         if e is not None:
             if netmask is not None:
                 e.netmask = netmask
@@ -224,6 +218,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
             if algorithm is not None:
                 e.algorithm = algorithm
             return e
+        address = key
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry(address=address, netmask=netmask, route_tag=route_tag, algorithm=algorithm)
         self.elements.append(res)
         return res
@@ -244,27 +239,6 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
                 copied_elements.append(ce)
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(elements=copied_elements)
 
-
-extension Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(Indexed[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
-    def __getitem__(self, k: str) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
-        e = self.get(k)
-        if e is not None:
-            return e
-        raise KeyError(k)
-
-    mut def __setitem__(self, k: str, n: Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry) -> None:
-        for i, e in enumerate(self.elements):
-            if e.address == k:
-                self.elements[i] = n
-                return
-        self.elements.append(n)
-
-    mut def __delitem__(self, k: str) -> None:
-        for i, e in enumerate(self.elements):
-            if e.address == k:
-                del self.elements[i]
-                return
-        raise KeyError(k)
 
 _breaker8: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries(yadata.MNode):
@@ -618,18 +592,12 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yadata.MNode):
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry.from_gdata(self.to_gdata())
 
 _breaker20: None = None
-class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MList[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
+class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]=[]) -> None:
-        self.elements = elements
+        yadata.MKeyedList.__init__(self, lambda e: e.interface_name, elements)
 
-    pure def get(self, interface_name: str) -> ?Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
-        for e in self:
-            if e.interface_name != interface_name:
-                continue
-            return e
-
-    mut def create(self, interface_name: str, shutdown: ?bool=None, mtu: ?u64=None, description: ?str=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
-        e = self.get(interface_name)
+    mut def create(self, key: str, shutdown: ?bool=None, mtu: ?u64=None, description: ?str=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
+        e = self.get(key)
         if e is not None:
             if shutdown is not None:
                 e.shutdown = shutdown
@@ -638,6 +606,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MList[Cisco_IO
             if description is not None:
                 e.description = description
             return e
+        interface_name = key
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(interface_name=interface_name, shutdown=shutdown, mtu=mtu, description=description)
         self.elements.append(res)
         return res
@@ -658,27 +627,6 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MList[Cisco_IO
                 copied_elements.append(ce)
         return Cisco_IOS_XR_um_interface_cfg__interfaces__interface(elements=copied_elements)
 
-
-extension Cisco_IOS_XR_um_interface_cfg__interfaces__interface(Indexed[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
-    def __getitem__(self, k: str) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
-        e = self.get(k)
-        if e is not None:
-            return e
-        raise KeyError(k)
-
-    mut def __setitem__(self, k: str, n: Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry) -> None:
-        for i, e in enumerate(self.elements):
-            if e.interface_name == k:
-                self.elements[i] = n
-                return
-        self.elements.append(n)
-
-    mut def __delitem__(self, k: str) -> None:
-        for i, e in enumerate(self.elements):
-            if e.interface_name == k:
-                del self.elements[i]
-                return
-        raise KeyError(k)
 
 _breaker21: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces(yadata.MNode):
