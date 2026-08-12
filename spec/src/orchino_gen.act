@@ -9,9 +9,6 @@ actor main(env):
     pc = process.ProcessCap(env.cap)
 
     try:
-        stratoweave.build.apply_schema_transforms_to_dir(fc, "yang/CiscoIosXr_24_1_ncs55a1", [
-            stratoweave.build.SchemaTransformChain(".*yang.orig", [stratoweave.build.SchemaTransformNoComments()])
-        ])
 
         cfs_layer = stratoweave.build.Layer.from_dir(fc, "yang/cfs")
         cfs_layer.models.extend([oyang.stratoweave, oyang.ietf_inet_types])

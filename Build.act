@@ -4,21 +4,21 @@ fingerprint = 0xe70d5786c192d814
 dependencies = {
     "lmdb": (
         repo_url="https://github.com/stratoweave/acton-lmdb",
-        url="https://github.com/stratoweave/acton-lmdb/archive/bad98443d45abed27c898114978116610d9b5af6.zip",
-        hash="N-V-__8AAMTaAABretZVTryDhoTumlwy3ekD-xmohzaqWwTH"
+        url="https://github.com/stratoweave/acton-lmdb/archive/05c9a1ae51360443150e002a9f7effac5a0be884.zip",
+        hash="N-V-__8AAJ8BAQBaDaW6N50DeQxT7GngYhvgGmTTKZX93ttB"
     ),
     "spec": (
         path="spec"
     ),
     "stratoweave": (
         repo_url="https://github.com/stratoweave/stratoweave",
-        url="https://github.com/stratoweave/stratoweave/archive/f4573161790fc92557848efa304a5baa7c0bbd41.zip",
-        hash="N-V-__8AAGUHPQD4yjrQYFYkvVJhoSEnoym_bL2KWSjs2D2A"
+        url="https://github.com/stratoweave/stratoweave/archive/8ec9d51b26cf4c39b2de01297007e0e76337853d.zip",
+        hash="N-V-__8AAN-CPAARiMJOk4nJAaLXkRvIWBYHLk39Sg5yOmZh"
     ),
     "yang": (
         repo_url="https://github.com/stratoweave/acton-yang.git",
-        url="https://github.com/stratoweave/acton-yang/archive/6bd26521cd3cd2664eb66b90c14dba18e17db856.zip",
-        hash="N-V-__8AAI4cJwByJO3YK_rs17D_K2hXVKcK7UBL2ikUiuUy"
+        url="https://github.com/stratoweave/acton-yang/archive/d8d20ea812c7d75843dc44aa05ad97225df70df8.zip",
+        hash="N-V-__8AABj8JgD2jjfBCV3uHrzeIxH6lg9eMMK6yk372ykG"
     )
 }
 zig_dependencies = {}
