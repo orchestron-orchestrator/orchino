@@ -2548,7 +2548,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
 _breaker7: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]=[]) -> None:
-        yadata.MKeyedList.__init__(self, lambda e: e.address, elements)
+        yadata.MKeyedList.__init__(self, lambda e, k: e.address == k, elements)
 
     mut def create(self, key: str, netmask: ?str=None, route_tag: ?u64=None, algorithm: ?u64=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
         e = self.get(key)
@@ -2936,7 +2936,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yadata.MNode):
 _breaker20: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]=[]) -> None:
-        yadata.MKeyedList.__init__(self, lambda e: e.interface_name, elements)
+        yadata.MKeyedList.__init__(self, lambda e, k: e.interface_name == k, elements)
 
     mut def create(self, key: str, shutdown: ?bool=None, mtu: ?u64=None, description: ?str=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
         e = self.get(key)
