@@ -2548,7 +2548,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
 _breaker7: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry]=[]) -> None:
-        yadata.MKeyedList.__init__(self, lambda e, k: e.address == k, elements)
+        yadata.MKeyedList.__init__(self, lambda e: e.address, elements)
 
     mut def create(self, key: str, netmask: ?str=None, route_tag: ?u64=None, algorithm: ?u64=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry:
         e = self.get(key)
@@ -2562,7 +2562,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__sec
             return e
         address = key
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface__ipv4__addresses__secondaries__secondary_entry(address=address, netmask=netmask, route_tag=route_tag, algorithm=algorithm)
-        self.elements.append(res)
+        self._append(res)
         return res
 
     @staticmethod
@@ -2936,7 +2936,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(yadata.MNode):
 _breaker20: None = None
 class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MKeyedList[str, Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]):
     mut def __init__(self, elements: list[Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry]=[]) -> None:
-        yadata.MKeyedList.__init__(self, lambda e, k: e.interface_name == k, elements)
+        yadata.MKeyedList.__init__(self, lambda e: e.interface_name, elements)
 
     mut def create(self, key: str, shutdown: ?bool=None, mtu: ?u64=None, description: ?str=None) -> Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry:
         e = self.get(key)
@@ -2950,7 +2950,7 @@ class Cisco_IOS_XR_um_interface_cfg__interfaces__interface(yadata.MKeyedList[str
             return e
         interface_name = key
         res = Cisco_IOS_XR_um_interface_cfg__interfaces__interface_entry(interface_name=interface_name, shutdown=shutdown, mtu=mtu, description=description)
-        self.elements.append(res)
+        self._append(res)
         return res
 
     @staticmethod
