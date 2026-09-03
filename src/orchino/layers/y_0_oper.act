@@ -637,7 +637,7 @@ class netinfra__netinfra__router_entry(yadata.MNode):
 _breaker2: None = None
 class netinfra__netinfra__router(yadata.MKeyedList[str, netinfra__netinfra__router_entry]):
     mut def __init__(self, elements: list[netinfra__netinfra__router_entry]=[]) -> None:
-        yadata.MKeyedList.__init__(self, lambda e, k: e.name == k, elements)
+        yadata.MKeyedList.__init__(self, lambda e: e.name, elements)
 
     mut def create(self, key: str, id: ?u64=None, type: ?str=None) -> netinfra__netinfra__router_entry:
         e = self.get(key)
@@ -649,7 +649,7 @@ class netinfra__netinfra__router(yadata.MKeyedList[str, netinfra__netinfra__rout
             return e
         name = key
         res = netinfra__netinfra__router_entry(name=name, id=id, type=type)
-        self.elements.append(res)
+        self._append(res)
         return res
 
     @staticmethod
